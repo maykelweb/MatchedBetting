@@ -4,8 +4,11 @@ define('DB_USERNAME', 'root');
 define('DB_PASSWORD', 'Z0oUpJ9:Xi');
 define('DB_NAME', 'bets');
  
-/* Attempt to connect to MySQL database */
+// Attempt to connect to MySQL database 
 $link = mysqli_connect(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
+
+// Initialize the session
+session_start();
  
 // Check connection
 if($link === false){

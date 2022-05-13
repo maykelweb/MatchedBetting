@@ -12,11 +12,5 @@
     </section>
 
     <script src="js/index.js"></script> 
-    <script>
-        //Add Top Navigation event listeners
-        document.getElementById('navUser').addEventListener("click", (event) => {
-            showUsers();
-        });
-    </script>
 </body>
 </html>

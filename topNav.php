@@ -1,15 +1,46 @@
+<?php
+session_start();
+?>
+
 <body>
     <!-- Top Nav -->
     <section id="topNav">
         <div id="navUser">
-            User
+            <?php // Check activeUser is set or set it to all
+                if(!isset($_SESSION['activeUser']) || empty($_SESSION['activeUser'])) {
+                    $_SESSION['activeUser'] = "All";
+                }
+                //Active User
+                echo $_SESSION['activeUser'];
+            ?>
             <div id="changeUsers" style="display:none;">
-                <span> User 2 </span>
-                <span> User 3 </span>
-                <span> Add New User </span>
+                <?php
+                    //Get list of all accounts
+                    $query = "SELECT * FROM accounts";
+                    $result = mysqli_query($link, $query);
+                    if ($result->num_rows > 0) { //Display all accounts
+                        while($row = $result->fetch_assoc()) {
+                            if ($row['name'] != $activeUser) { //Don't show active user
+                                echo '<span id="changeUser">'. $row["name"] .'</span>';
+                            }
+                        }
+                    } else {
+                        echo "<span> Add Account </span>";
+                    }
+                ?>
             </div>
         </div>
         <a href="profits.php">
             Profit: £1722
         </a>
     </section>
+    
+    <script>
+        //Add Top Navigation event listeners
+        document.getElementById('navUser').addEventListener("click", (event) => {
+            showUsers();
+        });
+        document.getElementById('navUser').addEventListener("click", (event) => {
+            changeUser();
+        });
+    </script>
