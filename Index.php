@@ -41,11 +41,11 @@
     </section>
 
     <!-- Bottom Nav  -->
-    <section id="Homekey">
+    <section id="bottomNav">
         <a>
             Button 1
         </a>
-        <a href="add.php" id="Addkey">
+        <a href="add.php" id="addKey">
             <i class="fa-solid fa-plus"></i>
         </a>
         <a>
@@ -53,6 +53,12 @@
         </a>
     </section>
 
-    <script src="js/index.js"></script> 
+    <script src="js/index.js"></script>
+    <script>
+        //Load todo list
+        const todoData = JSON.parse(localStorage.getItem("tododata"));
+        const todoTable = document.getElementById('todo').getElementsByTagName('tbody')[0];
+        loadTable(todoTable, todoData); 
+    </script> 
 </body>
 </html>

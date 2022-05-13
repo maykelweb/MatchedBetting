@@ -1,12 +1,3 @@
- //Load table data on load
- window.onload = (event) => {
-
-    //Load todo list
-    const todoData = JSON.parse(localStorage.getItem("tododata"));
-    const todoTable = document.getElementById('todo').getElementsByTagName('tbody')[0];
-    loadTable(todoTable, todoData); 
-};
-
 //Function to load table data
 function loadTable(t, d) {
     //total table price
@@ -161,4 +152,16 @@ function addListener(e) {
     e.addEventListener('blur', (event) => {
         addInput(e, true);
     });
+}
+
+
+/* New Additions */
+function showUsers() {
+    const users = document.getElementById('changeUsers');
+
+    if (changeUsers.style.display == "none" || changeUsers.style.display == "") {
+        changeUsers.style.display = "block";
+    } else {
+        changeUsers.style.display = "none"
+    }
 }

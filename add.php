@@ -10,13 +10,27 @@
     <title>Matched Betting</title>
 </head>
 <body>
-    
+    <!-- Top Nav -->
+    <section id="topNav">
+        <div id="navUser">
+            User
+            <div id="changeUsers" style="display;none;">
+                <span> User 2 </span>
+                <span> User 3 </span>
+                <span> Add New User </span>
+            </div>
+        </div>
+        <a href="profits.php">
+            Profit: £1722
+        </a>
+    </section>
+
     <!-- Bottom Nav  -->
-    <section id="Homekey">
+    <section id="bottomNav">
         <a href="#">
             <i class="fa-solid fa-house"></i>
         </a>
-        <a href="add.php" id="Addkey">
+        <a href="add.php" id="addKey">
             <i class="fa-solid fa-plus"></i>
         </a>
         <a href="index.php">
@@ -25,5 +39,11 @@
     </section>
 
     <script src="js/index.js"></script> 
+    <script>
+        //Add Top Navigation event listeners
+        document.getElementById('navUser').addEventListener("click", (event) => {
+            showUsers();
+        });
+    </script>
 </body>
 </html>
