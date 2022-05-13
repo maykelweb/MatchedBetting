@@ -1,0 +1,5 @@
+Tables 
+    Users
+    Accounts
+    Placed Bets
+    Free Bets
