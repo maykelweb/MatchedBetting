@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>Matched Betting</title>
+</head>
+<body>
+
+    <h1> Matched Betting</h1>
+
+    <section id="todo">
+        <h2> Free Bets </h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Bookies</th>
+                    <th>Free</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total </th>
+                    <td id="total"> £0 </td>
+                </tr>
+            </tfoot>
+          </table>
+
+          <div>
+                <button class="button" onclick="addTable('todo')"> Add </button>
+                <button class="button" onclick="editTable('todo', 'tododata')"> Edit </button>
+                <button class="button" onclick="refreshTable('todo', 'tododata')"> Save </button>
+          </div>
+    </section>
+
+    <section id="bookies">
+        <table>
+            <thead>
+                <tr>
+                    <th>Bookies</th>
+                    <th>Profit</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total </th>
+                    <td id="total"> £0 </td>
+                </tr>
+            </tfoot>
+          </table>
+
+          <div id="addBookie">
+                <button class="button" onclick="addTable('bookies')"> Add </button>
+                <button class="button" onclick="editTable('bookies', 'data')"> Edit </button>
+                <button class="button" onclick="refreshTable('bookies', 'data')"> Save </button>
+          </div>
+    </section>
+
+    <section id="banktransfer">
+        
+        <h2> Coming To Bank</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Bookies</th>
+                    <th>Transfer</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total </th>
+                    <td id="total"> £0 </td>
+                </tr>
+            </tfoot>
+          </table>
+
+          <div>
+                <button class="button" onclick="addTable('banktransfer')"> Add </button>
+                <button class="button" onclick="editTable('banktransfer', 'bankdata')"> Edit </button>
+                <button class="button" onclick="refreshTable('banktransfer', 'bankdata')"> save </button>
+          </div>
+    </section>
+
+    <script>
+        //Load table data on load
+        window.onload = (event) => {
+
+            //Load todo list
+            const todoData = JSON.parse(localStorage.getItem("tododata"));
+            const todoTable = document.getElementById('todo').getElementsByTagName('tbody')[0];
+            loadTable(todoTable, todoData); 
+
+            //Load Bookie Profit Table
+            const data = JSON.parse(localStorage.getItem("data"));
+            const table = document.getElementById('bookies').getElementsByTagName('tbody')[0];
+            loadTable(table, data);
+
+            //Load Bank Transfer Table
+            const bankData = JSON.parse(localStorage.getItem("bankdata"));
+            const bankTable = document.getElementById('banktransfer').getElementsByTagName('tbody')[0];
+            loadTable(bankTable, bankData); 
+        };
+
+        //Function to load table data
+        function loadTable(t, d) {
+            //total table price
+            let total = 0;
+
+            //Loop through table data and insert rows into table with html data
+            d.forEach((element) => { 
+                const tr = t.insertRow();
+                tr.innerHTML = element;
+
+                let price = element.split("£");
+                total += parseFloat(price[1]);
+            })
+            
+            //Add total price count
+            t.parentElement.querySelector('#total').innerText = "£" + total;
+        }
+
+        function refreshTable(t, d) {
+            removeEdit(t);
+
+            let table = document.getElementById(t).getElementsByTagName('tbody')[0];
+
+            let data = [];
+            let prices = [];
+            let total = 0;
+
+            Array.from(table.children).forEach(tr => {
+                data.push(tr.innerHTML)
+
+                prices.push(tr.innerText.split("£"));
+            });
+
+            for(let i = 0; i < prices.length; i++) {
+                total += parseFloat(prices[i][1]);
+            }
+            
+            //Add total
+            table.parentElement.querySelector('#total').innerText = "£" + total;
+
+            localStorage.removeItem(d);
+            localStorage.setItem(d, JSON.stringify(data));
+        }
+
+        function addTable(t) {
+            const table = document.getElementById(t).getElementsByTagName('tbody')[0];
+
+             // Insert a row at the end of table
+             var newRow = table.insertRow();
+
+            // Insert a cell at the end of the row
+            var bookies = newRow.insertCell();
+            var profit = newRow.insertCell();
+
+            //Create bookie input node
+            var inputB = document.createElement("input");
+            inputB.type = "text";
+            inputB.placeholder = "Enter Bookie"; 
+
+            //add Event listeners to automatically add data into table
+            inputB.addEventListener("keyup", (event) => {
+                addInput(inputB);
+            });
+            inputB.addEventListener('blur', (event) => {
+                addInput(inputB, true);
+            });
+            
+            //Create profit input node
+            var inputP = document.createElement("input");
+            inputP.type = "text";
+            inputP.placeholder = "Enter Profits"; 
+            
+            //Add event listeners
+            inputP.addEventListener("keyup", (event) => {
+                addInput(inputP);
+            });
+            inputP.addEventListener('blur', (event) => {
+                addInput(inputP, true);
+            });
+
+            // Append an input node to the cell
+            bookies.appendChild(inputB);
+            profit.appendChild(inputP)
+        }
+
+        //Add remove buttons to each table list
+        function editTable(t) {
+            //Get all table rows
+            const table = document.getElementById(t).querySelectorAll('tbody tr');
+
+            let count = 0;
+            //Add remove button for each row
+            table.forEach((e) => {
+                console.log("here1")
+                //Create remove button
+                var div = document.createElement("div");
+                div.classList.add("list-remove");
+                div.onclick = removeTable;
+                div.innerText = "x";
+                div.setAttribute("value", count);
+                e.appendChild(div)
+                
+                count++;
+            })
+        }
+
+        //Remove item from table
+        function removeTable() {
+            event.target.parentElement.remove();
+        }
+
+        function removeEdit(t) {
+            //Get all table rows
+            const table = document.getElementById(t);
+
+            let list = table.querySelectorAll('.list-remove');
+
+            //Add remove button for each row
+            list.forEach((e) => {
+                e.remove();
+            })
+        }
+
+        //Edit Table
+        function edit(e) {
+            //Get Value
+            let value = e.innerHTML;
+
+            //Changes HTML to table data with input field
+            //addlistener is called to add an event listener
+            e.outerHTML = "<td><input type='text' value=" + value + " onclick='addListener(this)''></td>"; 
+        }
+
+        //Add input to table
+        function addInput(input, skip) {
+            //Check enter key is pressed
+            if (event.keyCode === 13 || event.keyCode === 27 || skip == true) {
+                //Prevent Default Actions
+                event.preventDefault();
+
+                //Enter data into table
+                let value = input.value;
+                input.parentElement.outerHTML = "<td><span onclick='edit(this)'>" + value + "</span></td>";
+            }
+        }
+
+        function addListener(e) {
+            //Adding event listeners for enter key and out of focus. Both events call add input method
+            e.addEventListener("keyup", (event) => {
+                addInput(e);
+            });
+            e.addEventListener('blur', (event) => {
+                addInput(e, true);
+            });
+        }
+    </script>
+</body>
+</html>
+<style>
+
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    margin: 1em;
+}
+
+#todo {
+    position: absolute;
+    left: 50px;
+    top: 100px;
+    text-align: center;
+}
+
+#bookies {
+    text-align: center;
+}
+
+#banktransfer {
+    position: absolute;
+    right: 50px;
+    top: 100px;
+    text-align: center;
+}
+
+#banktransfer tfoot {
+    background-color: #1080d2;
+}
+#banktransfer thead {
+    border-bottom: 2px solid#1080d2;
+}
+
+.list-remove {
+    width: 25px;
+    height: 25px;
+    font-size: 20px;
+    line-height: 22px;
+    color: white;
+    background: #c01d1d;
+    display: inline-block;
+    cursor: pointer;
+    position: absolute;
+    right: 5px;
+    top: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Table */
+table {
+    border-collapse: collapse;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+thead {
+    border-bottom: 2px solid #009879;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: center;
+    width: 50%;
+}
+
+tbody tr {
+    position: relative;
+    border-bottom: 1px solid #dddddd;
+}
+
+tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+tbody th {
+    border-bottom: 2px solid #009879;
+}
+
+tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+
+tfoot {
+    background-color: #009879;
+    color: white;
+}
+
+input {
+    width: 100%;
+    border: none;
+    text-align: center;
+    background: none;
+    font-size: 0.9em;
+}
+textarea:focus, input:focus{
+    outline: none;
+}
+
+/* Button */
+button {
+  appearance: none;
+  background-color: #009879;
+  border: 1px solid rgba(27, 31, 35, .15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 6px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+  margin: 1em;
+}
+
+button:focus:not(:focus-visible):not(.focus-visible) {
+  box-shadow: none;
+  outline: none;
+}
+
+button:hover {
+  background-color: #03866c;
+}
+
+button:focus {
+  box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+  outline: none;
+}
+
+button:disabled {
+  background-color: #94d3a2;
+  border-color: rgba(27, 31, 35, .1);
+  color: rgba(255, 255, 255, .8);
+  cursor: default;
+}
+
+button:active {
+  background-color: #03866c;
+  box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+}
+
+</style>

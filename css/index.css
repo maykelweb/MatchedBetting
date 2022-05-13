@@ -1,0 +1,140 @@
+
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    margin: 1em;
+}
+
+#banktransfer tfoot {
+    background-color: #1080d2;
+}
+#banktransfer thead {
+    border-bottom: 2px solid#1080d2;
+}
+
+.list-remove {
+    width: 25px;
+    height: 25px;
+    font-size: 20px;
+    line-height: 22px;
+    color: white;
+    background: #c01d1d;
+    display: inline-block;
+    cursor: pointer;
+    position: absolute;
+    right: 5px;
+    top: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Table */
+table {
+    border-collapse: collapse;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    width: 100%;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+thead {
+    border-bottom: 2px solid #009879;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: center;
+    width: 50%;
+}
+
+tbody tr {
+    position: relative;
+    border-bottom: 1px solid #dddddd;
+}
+
+tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+tbody th {
+    border-bottom: 2px solid #009879;
+}
+
+tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+
+tfoot {
+    background-color: #009879;
+    color: white;
+}
+
+input {
+    width: 100%;
+    border: none;
+    text-align: center;
+    background: none;
+    font-size: 0.9em;
+}
+textarea:focus, input:focus{
+    outline: none;
+}
+
+/* Button */
+button {
+  appearance: none;
+  background-color: #009879;
+  border: 1px solid rgba(27, 31, 35, .15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, .1) 0 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 6px 16px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+  margin: 1em;
+}
+
+button:focus:not(:focus-visible):not(.focus-visible) {
+  box-shadow: none;
+  outline: none;
+}
+
+button:hover {
+  background-color: #03866c;
+}
+
+button:focus {
+  box-shadow: rgba(46, 164, 79, .4) 0 0 0 3px;
+  outline: none;
+}
+
+button:disabled {
+  background-color: #94d3a2;
+  border-color: rgba(27, 31, 35, .1);
+  color: rgba(255, 255, 255, .8);
+  cursor: default;
+}
+
+button:active {
+  background-color: #03866c;
+  box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+}
