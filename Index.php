@@ -40,17 +40,17 @@
           </div>
     </section>
 
-    <!-- Buttons  -->
+    <!-- Bottom Nav  -->
     <section id="Homekey">
-        <span>
+        <a>
             Button 1
-        </span>
-        <span id="Addkey">
+        </a>
+        <a href="add.php" id="Addkey">
             <i class="fa-solid fa-plus"></i>
-        </span>
-        <span>
+        </a>
+        <a>
             Button 3
-        </span>
+        </a>
     </section>
 
     <script src="js/index.js"></script> 

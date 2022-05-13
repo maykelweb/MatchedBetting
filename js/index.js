@@ -5,11 +5,6 @@
     const todoData = JSON.parse(localStorage.getItem("tododata"));
     const todoTable = document.getElementById('todo').getElementsByTagName('tbody')[0];
     loadTable(todoTable, todoData); 
-    
-    //Add Bottom Navigation event listeners
-    document.getElementById('Addkey').addEventListener("click", (event) => {
-        alert("here");
-    });
 };
 
 //Function to load table data
