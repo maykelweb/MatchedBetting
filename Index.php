@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=
     , initial-scale=1.0">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Matched Betting</title>
 </head>
 <body>
@@ -39,8 +40,17 @@
           </div>
     </section>
 
-    <!--  -->
-    <section>
+    <!-- Buttons  -->
+    <section id="Homekey">
+        <span>
+            Button 1
+        </span>
+        <span id="Addkey">
+            <i class="fa-solid fa-plus"></i>
+        </span>
+        <span>
+            Button 3
+        </span>
     </section>
 
     <script src="js/index.js"></script> 

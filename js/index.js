@@ -5,16 +5,11 @@
     const todoData = JSON.parse(localStorage.getItem("tododata"));
     const todoTable = document.getElementById('todo').getElementsByTagName('tbody')[0];
     loadTable(todoTable, todoData); 
-
-    //Load Bookie Profit Table
-    const data = JSON.parse(localStorage.getItem("data"));
-    const table = document.getElementById('bookies').getElementsByTagName('tbody')[0];
-    loadTable(table, data);
-
-    //Load Bank Transfer Table
-    const bankData = JSON.parse(localStorage.getItem("bankdata"));
-    const bankTable = document.getElementById('banktransfer').getElementsByTagName('tbody')[0];
-    loadTable(bankTable, bankData); 
+    
+    //Add Bottom Navigation event listeners
+    document.getElementById('Addkey').addEventListener("click", (event) => {
+        alert("here");
+    });
 };
 
 //Function to load table data
