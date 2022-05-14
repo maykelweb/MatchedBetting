@@ -174,9 +174,6 @@ button:active {
 #bottomNav {
     display: flex;
     text-align: center;
-    position: fixed;
-    bottom: 0;
-    left: 0;
     width: 100%;
     height: 65px;
 }
@@ -205,7 +202,65 @@ button:active {
     padding: 20px;
 }
 
-.form {
-    -webkit-box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.075);
-    box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.075);
+.panel {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
+
+.form-bet {
+    background-color: #faf1d7;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    text-align: left;
+    border-color: #f4c7c7  #f4c7c7  #f4c7c7 ;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.form-backBet {
+    background-color: #D7ECFA;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    text-align: left;
+    border-color: #84C4F1 #84C4F1 #53ACEB;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.form-exchange {
+    background-color: #FDDEE5;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    text-align: left;
+    border-color: #FBAFBF #FBAFBF #FAA0B2;
+    border-style: solid;
+    border-width: 1px;
+}
+
+input {
+    text-align: left;
+}
+
+.input-group-addon {
+    padding: 7px 12px;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.5;
+    color: #555555;
+    text-align: center;
+    background-color: #eeeeee;
+    border: 1px solid #e7e7e7;
+      border-right-color: rgb(231, 231, 231);
+      border-right-style: solid;
+      border-right-width: 1px;
+    border-radius: 4px;
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+  }
