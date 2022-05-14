@@ -127,5 +127,3 @@ require "topNav.php";
 <?php
 require "bottomNav.php";
 ?>
-
-    

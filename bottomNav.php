@@ -1,12 +1,12 @@
 <!-- Bottom Nav  -->
 <section id="bottomNav">
-        <a href="#">
+        <a href="index.php">
             <i class="fa-solid fa-house"></i>
         </a>
         <a href="add.php" id="addKey">
             <i class="fa-solid fa-plus"></i>
         </a>
-        <a href="index.php">
+        <a href="#">
             <i class="fa-solid fa-rotate-left"></i>
         </a>
     </section>
