@@ -5,13 +5,13 @@ session_start();
 <body>
     <!-- Top Nav -->
     <section id="topNav">
-        <div id="navUser">
+        <div>
             <?php // Check activeUser is set or set it to all
                 if(!isset($_SESSION['activeUser']) || empty($_SESSION['activeUser'])) {
                     $_SESSION['activeUser'] = "All";
                 }
                 //Active User
-                echo $_SESSION['activeUser'];
+                echo "<span id='navUser'> ". $_SESSION['activeUser']. "</span>";
             ?>
             <div id="changeUsers" style="display:none;">
                 <?php
@@ -21,7 +21,7 @@ session_start();
                     if ($result->num_rows > 0) { //Display all accounts
                         while($row = $result->fetch_assoc()) {
                             if ($row['name'] != $activeUser) { //Don't show active user
-                                echo '<span id="changeUser">'. $row["name"] .'</span>';
+                                echo '<span class="changeUser">'. $row["name"] .'</span>';
                             }
                         }
                     } else {
@@ -40,7 +40,12 @@ session_start();
         document.getElementById('navUser').addEventListener("click", (event) => {
             showUsers();
         });
-        document.getElementById('navUser').addEventListener("click", (event) => {
-            changeUser();
+
+        //Change User Event Listener
+        const users = document.querySelectorAll('.changeUser');
+        users.forEach(user => {
+            user.addEventListener('click', function handleClick(event) {
+                console.log(event.target.innerText);
+            });
         });
     </script>

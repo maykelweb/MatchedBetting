@@ -199,3 +199,13 @@ button:active {
     border-left: 1px solid white;
     border-right: 1px solid white;
 }
+
+/* Add Bet Form */
+#addBetContainer {
+    padding: 20px;
+}
+
+.form {
+    -webkit-box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.075);
+}
