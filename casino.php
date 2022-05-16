@@ -3,22 +3,22 @@ require "config.php";
 require "header.php";
 require "topNav.php";
 ?>
-<section id="freeBets">
+<section id="casino">
         
-    <h1> Free Bets </h1>
+    <h1> Casino </h1>
 
     <table>
         <thead>
             <tr>
-                <th>Bookies</th>
-                <th>Free</th>
+                <th>Casino</th>
+                <th>Expected Value</th>
             </tr>
         </thead>
         <tbody>
 
         <?php
         //Prepare statement to select all free bets
-        $sql = "SELECT * FROM freebets";
+        $sql = "SELECT * FROM casino";
         $result = mysqli_query($link, $sql);
 
         //Loop through all rows and display data
@@ -26,9 +26,9 @@ require "topNav.php";
             echo '
             <tr>
                 <td>
-                    <input type="text" placeholder="Enter Bookie" name="bookmaker" value='. $row['bookmaker'] .'>
+                    <input type="text" placeholder="Enter Bookie" name="casino" value='. $row['casino'] .'>
                 <td>
-                    <input type="text" placeholder="Enter Profits" name="profit" value='. $row['profit'] .'>
+                    <input type="text" placeholder="Enter Profits" name="ev" value='. $row['ev'] .'>
                     <input type="hidden" name="date" value='. $row['time_created'] .'>
                 </td>
             </tr>'
@@ -46,10 +46,10 @@ require "topNav.php";
     </table>
 
     <div id="table-buttons">
-        <button class="button" onclick="editTable('freeBets', 'freeBetsData')">
+        <button class="button" onclick="editTable('casino', 'casinoData')">
             <i class="fa-solid fa-pen"></i>
         </button>
-        <button class="button" onclick="addTable('freeBets', 'bookmaker', 'profit')">
+        <button class="button" onclick="addTable('casino', 'casino', 'ev')">
             <i class="fa-solid fa-plus"></i>
         </button>
     </div>
@@ -65,7 +65,7 @@ require "topNav.php";
         //Add event listeners to every tr
         document.body.querySelectorAll('tr').forEach( input => {
             input.addEventListener("change", (event) => {
-                addFreeBet(event);
+                addCasino(event);
             });
         });
     </script>

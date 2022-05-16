@@ -1,19 +1,19 @@
 /* Add a new cell to the table */
-function addTable(t) {
+function addTable(t, r1, r2) {
     const table = document.getElementById(t).getElementsByTagName('tbody')[0];
 
     // Insert a row at the end of table
     var newRow = table.insertRow();
 
     // Insert a cell at the end of the row
-    var bookies = newRow.insertCell();
-    var profit = newRow.insertCell();
+    var row1 = newRow.insertCell();
+    var row2 = newRow.insertCell();
 
     //Create bookie input node
     var inputB = document.createElement("input");
     inputB.type = "text";
-    inputB.placeholder = "Enter Bookie"; 
-    inputB.setAttribute("name", "bookmaker");
+    inputB.placeholder = "Enter " + r1; 
+    inputB.setAttribute("name", r1);
 
     //add Event listeners to automatically add data into table
     inputB.addEventListener("keyup", (event) => { 
@@ -23,8 +23,8 @@ function addTable(t) {
     //Create profit input node
     var inputP = document.createElement("input");
     inputP.type = "text";
-    inputP.placeholder = "Enter Profits"; 
-    inputP.setAttribute("name", "profit");
+    inputP.placeholder = "Enter " + r2; 
+    inputP.setAttribute("name", r2);
     
     //Add event listeners
     inputP.addEventListener("keyup", (event) => {
@@ -39,13 +39,18 @@ function addTable(t) {
 
     //Listen to row changes
     newRow.addEventListener('change', (event) => {
-        addFreeBet(event);
+        if (r1 == "bookmaker") {
+            addFreeBet(event);
+        }
+        if (r1 == "casino") {
+            addCasino(event);
+        }
     });
 
     // Append an input node to the cell
-    bookies.appendChild(inputB);
-    profit.appendChild(inputP);
-    profit.appendChild(inputD);
+    row1.appendChild(inputB);
+    row2.appendChild(inputP);
+    row2.appendChild(inputD);
 }
 
 //Function to validate free bets table and add new inputs to MySQL
@@ -62,6 +67,33 @@ function addFreeBet(e) {
             url: "functions/addFreeBet.php",
             data: {bookmaker : bookmaker,
                    profit: profit,
+                   date: date
+                },
+            success: function(){
+                // Success
+            },
+            error: function (request, status, error) {
+                alert("Could not save data:");
+                //Show error message could not save data
+            }
+        });
+    }
+}
+
+//Add casino table data to mysql
+function addCasino(e) {
+    const row = e.target.parentElement.parentElement;
+
+    const casino = row.querySelector("[name='casino']").value;
+    const ev = row.querySelector("[name='ev']").value;
+    const date = row.querySelector("[name='date']").value;
+
+    if (casino != "" && ev != "" && date != "") {
+        //Ajax request to save data into MySQL
+        $.ajax({
+            url: "functions/addCasino.php",
+            data: {casino : casino,
+                   ev: ev,
                    date: date
                 },
             success: function(){

@@ -6,8 +6,8 @@
         <a href="add.php" id="addKey">
             <i class="fa-solid fa-plus"></i>
         </a>
-        <a href="#">
-            <i class="fa-solid fa-rotate-left"></i>
+        <a href="casino.php">
+            <i class="fa-solid fa-dice"></i>
         </a>
     </section>
 
