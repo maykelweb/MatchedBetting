@@ -68,7 +68,7 @@ function addFreeBet(e) {
                 // Success
             },
             error: function (request, status, error) {
-                alert("Could not save data");
+                alert("Could not save data:");
                 //Show error message could not save data
             }
         });
