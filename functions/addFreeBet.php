@@ -7,7 +7,7 @@ if (session_id() == "")
   session_start();
 
 // Processing form data when form is submitted
-if ($_SERVER["REQUEST_METHOD"] != "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     //Check all fields have a value
     if (empty($_GET['bookmaker']) || empty($_GET['profit']) || empty($_GET['date'])) {
