@@ -16,11 +16,8 @@ function addTable(t) {
     inputB.setAttribute("name", "bookmaker");
 
     //add Event listeners to automatically add data into table
-    inputB.addEventListener("keyup", (event) => {
+    inputB.addEventListener("keyup", (event) => { 
         addInput(inputB);
-    });
-    inputB.addEventListener('blur', (event) => {
-        addInput(inputB, true);
     });
     
     //Create profit input node
@@ -32,9 +29,6 @@ function addTable(t) {
     //Add event listeners
     inputP.addEventListener("keyup", (event) => {
         addInput(inputP);
-    });
-    inputP.addEventListener('blur', (event) => {
-        addInput(inputP, true);
     });
 
     //Create Hidden Date field
@@ -63,7 +57,7 @@ function addFreeBet(e) {
     const profit = row.querySelector("[name='profit']");
     const date = row.querySelector("[name='date']");
 
-    console.log(bookmaker.innerHTML + " | " + profit.value + " | " + date);
+    console.log(bookmaker.value + " | " + profit.value + " | " + date.value);
 }
 
 //Add remove buttons to each table list
@@ -105,37 +99,15 @@ function removeEdit(t) {
     })
 }
 
-//Edit Table
-function edit(e) {
-    //Get Value
-    let value = e.innerHTML;
 
-    //Changes HTML to table data with input field
-    //addlistener is called to add an event listener
-    e.outerHTML = "<td><input type='text' value=" + value + " onclick='addListener(this)''></td>"; 
-}
-
-//Add input to table
+//Small UX code to blur out of focus after pressing enter
 function addInput(input, skip) {
-    //Check enter key is pressed
-    if (event.keyCode === 13 || event.keyCode === 27 || skip == true) {
+    //Check enter key is pressed or escape key is pressed
+    if (event.keyCode === 13 || event.keyCode === 27) {
         //Prevent Default Actions
         event.preventDefault();
-
-        //Enter data into table
-        let value = input.value;
-        input.parentElement.outerHTML = "<td><span onclick='edit(this)'>" + value + "</span></td>";
+        input.blur();
     }
-}
-
-function addListener(e) {
-    //Adding event listeners for enter key and out of focus. Both events call add input method
-    e.addEventListener("keyup", (event) => {
-        addInput(e);
-    });
-    e.addEventListener('blur', (event) => {
-        addInput(e, true);
-    });
 }
 
 
