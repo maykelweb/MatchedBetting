@@ -35,7 +35,6 @@ require "topNav.php";
     </div>
 </section>
 
-<script src="js/index.js"></script>
 <?php
 require "bottomNav.php";
 ?>

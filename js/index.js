@@ -50,14 +50,29 @@ function addTable(t) {
 
 //Function to validate free bets table and add new inputs to MySQL
 function addFreeBet(e) {
-    
     const row = e.target.parentElement.parentElement;
 
-    const bookmaker = row.querySelector("[name='bookmaker']");
-    const profit = row.querySelector("[name='profit']");
-    const date = row.querySelector("[name='date']");
+    const bookmaker = row.querySelector("[name='bookmaker']").value;
+    const profit = row.querySelector("[name='profit']").value;
+    const date = row.querySelector("[name='date']").value;
 
-    console.log(bookmaker.value + " | " + profit.value + " | " + date.value);
+    if (bookmaker != "" && profit != "" && date != "") {
+        //Ajax request to save data into MySQL
+        $.ajax({
+            url: "functions/addFreeBet.php",
+            data: {bookmaker : bookmaker,
+                   profit: profit,
+                   date: date
+                },
+            success: function(){
+                // Success
+            },
+            error: function (request, status, error) {
+                alert("Could not save data");
+                //Show error message could not save data
+            }
+        });
+    }
 }
 
 //Add remove buttons to each table list
