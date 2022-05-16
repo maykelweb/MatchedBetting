@@ -20,14 +20,13 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $date = $_GET['date'];
 
     // Prepare a select statement to check if data is already in MySQL
-    $sql = "SELECT bookmaker, time_created FROM freebets WHERE bookmaker = ? && time_created = ?";
+    $sql = "SELECT time_created FROM freebets WHERE time_created = ?";
     
         if ($stmt = mysqli_prepare($link, $sql)) {
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ss", $param_bookmaker, $param_time_created);
+            mysqli_stmt_bind_param($stmt, "s", $param_time_created);
             
             // Set parameters
-            $param_bookmaker = $bookmaker;
             $param_time_created = $date;
             
             // Attempt to execute the prepared statement
@@ -40,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                     //Table row already exists, update existing instead of insert new row
 
                     // Prepare an update statement
-                    $sql = "UPDATE freebets SET price = ? WHERE bookmaker = ? && time_created = ?";
+                    $sql = "UPDATE freebets SET profit = ?, bookmaker = ? WHERE time_created = ?";
          
                     if ($stmt = mysqli_prepare($link, $sql)) {
                         
@@ -65,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                 } else { //Add data to table
 
                     // Prepare an insert statement
-                    $sql = "INSERT INTO freebets (bookmaker, price, time_created) VALUES (?, ?, ?)";
+                    $sql = "INSERT INTO freebets (bookmaker, profit, time_created) VALUES (?, ?, ?)";
          
                     if ($stmt = mysqli_prepare($link, $sql)) {
                         

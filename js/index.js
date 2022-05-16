@@ -35,7 +35,7 @@ function addTable(t) {
     var inputD = document.createElement("input");
     inputD.setAttribute("type", "hidden");
     inputD.setAttribute("name", "date");
-    inputD.setAttribute("value", new Date().toLocaleString());
+    inputD.setAttribute("value", new Date().toLocaleString().replace(/ /g, ":"));
 
     //Listen to row changes
     newRow.addEventListener('change', (event) => {
@@ -116,7 +116,7 @@ function removeEdit(t) {
 
 
 //Small UX code to blur out of focus after pressing enter
-function addInput(input, skip) {
+function addInput(input) {
     //Check enter key is pressed or escape key is pressed
     if (event.keyCode === 13 || event.keyCode === 27) {
         //Prevent Default Actions
