@@ -36,12 +36,6 @@ require "topNav.php";
 </section>
 
 <script src="js/index.js"></script>
-<script>
-    //Load todo list
-    const todoData = JSON.parse(localStorage.getItem("freeBetsData"));
-    const todoTable = document.getElementById('freeBets').getElementsByTagName('tbody')[0];
-    loadTable(todoTable, todoData); 
-</script> 
 <?php
 require "bottomNav.php";
 ?>

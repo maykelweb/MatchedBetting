@@ -1,52 +1,9 @@
-//Function to load table data
-function loadTable(t, d) {
-    //total table price
-    let total = 0;
-
-    //Loop through table data and insert rows into table with html data
-    d.forEach((element) => { 
-        const tr = t.insertRow();
-        tr.innerHTML = element;
-
-        let price = element.split("£");
-        total += parseFloat(price[1]);
-    })
-    
-    //Add total price count
-    t.parentElement.querySelector('#total').innerText = "£" + total;
-}
-
-function refreshTable(t, d) {
-    removeEdit(t);
-
-    let table = document.getElementById(t).getElementsByTagName('tbody')[0];
-
-    let data = [];
-    let prices = [];
-    let total = 0;
-
-    Array.from(table.children).forEach(tr => {
-        data.push(tr.innerHTML)
-
-        prices.push(tr.innerText.split("£"));
-    });
-
-    for(let i = 0; i < prices.length; i++) {
-        total += parseFloat(prices[i][1]);
-    }
-    
-    //Add total
-    table.parentElement.querySelector('#total').innerText = "£" + total;
-
-    localStorage.removeItem(d);
-    localStorage.setItem(d, JSON.stringify(data));
-}
-
+/* Add a new cell to the table */
 function addTable(t) {
     const table = document.getElementById(t).getElementsByTagName('tbody')[0];
 
-     // Insert a row at the end of table
-     var newRow = table.insertRow();
+    // Insert a row at the end of table
+    var newRow = table.insertRow();
 
     // Insert a cell at the end of the row
     var bookies = newRow.insertCell();
@@ -56,6 +13,7 @@ function addTable(t) {
     var inputB = document.createElement("input");
     inputB.type = "text";
     inputB.placeholder = "Enter Bookie"; 
+    inputB.setAttribute("name", "bookmaker");
 
     //add Event listeners to automatically add data into table
     inputB.addEventListener("keyup", (event) => {
@@ -69,6 +27,7 @@ function addTable(t) {
     var inputP = document.createElement("input");
     inputP.type = "text";
     inputP.placeholder = "Enter Profits"; 
+    inputP.setAttribute("name", "profit");
     
     //Add event listeners
     inputP.addEventListener("keyup", (event) => {
@@ -78,9 +37,33 @@ function addTable(t) {
         addInput(inputP, true);
     });
 
+    //Create Hidden Date field
+    var inputD = document.createElement("input");
+    inputD.setAttribute("type", "hidden");
+    inputD.setAttribute("name", "date");
+    inputD.setAttribute("value", new Date().toLocaleString());
+
+    //Listen to row changes
+    newRow.addEventListener('change', (event) => {
+        addFreeBet(event);
+    });
+
     // Append an input node to the cell
     bookies.appendChild(inputB);
-    profit.appendChild(inputP)
+    profit.appendChild(inputP);
+    profit.appendChild(inputD);
+}
+
+//Function to validate free bets table and add new inputs to MySQL
+function addFreeBet(e) {
+    
+    const row = e.target.parentElement.parentElement;
+
+    const bookmaker = row.querySelector("[name='bookmaker']");
+    const profit = row.querySelector("[name='profit']");
+    const date = row.querySelector("[name='date']");
+
+    console.log(bookmaker.innerHTML + " | " + profit.value + " | " + date);
 }
 
 //Add remove buttons to each table list
@@ -109,6 +92,7 @@ function removeTable() {
     event.target.parentElement.remove();
 }
 
+//Remove delete buttons
 function removeEdit(t) {
     //Get all table rows
     const table = document.getElementById(t);

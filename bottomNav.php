@@ -11,6 +11,6 @@
         </a>
     </section>
 
-    <script src="js/index.js"></script> 
+    <script src="js/index.js?v=5"></script> 
 </body>
 </html>
