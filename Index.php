@@ -11,7 +11,7 @@ require "topNav.php";
         <thead>
             <tr>
                 <th>Bookies</th>
-                <th>Free</th>
+                <th>Free Bet</th>
             </tr>
         </thead>
         <tbody>

@@ -7,7 +7,7 @@ require "topNav.php";
         
     <h1> Casino </h1>
 
-    <table>
+    <table id="casinoEV">
         <thead>
             <tr>
                 <th>Casino</th>
