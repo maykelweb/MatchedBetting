@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                     if ($stmt = mysqli_prepare($link, $sql)) {
                         
                         // Bind variables to the prepared statement as parameters
-                        mysqli_stmt_bind_param($stmt, "sis", $param_casino, $param_ev, $param_time_created);
+                        mysqli_stmt_bind_param($stmt, "sds", $param_casino, $param_ev, $param_time_created);
 
                         // Set parameters
                         $param_casino = $casino;

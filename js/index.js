@@ -115,14 +115,22 @@ function editTable(t) {
     let count = 0;
     //Add remove button for each row
     table.forEach((e) => {
-        console.log("here1")
         //Create remove button
         var div = document.createElement("div");
         div.classList.add("list-remove");
         div.onclick = removeTable;
         div.innerText = "x";
         div.setAttribute("value", count);
-        e.appendChild(div)
+        e.appendChild(div);
+
+        if (t == "casino") {
+            var tick = document.createElement("span");
+            tick.classList.add("list-done");
+            tick.onclick = completeTable;
+            tick.innerHTML = '<i class="fa-solid fa-check"></i>';
+            tick.setAttribute("value", count);
+            e.appendChild(tick);
+        }
         
         count++;
     })
@@ -131,6 +139,35 @@ function editTable(t) {
 //Remove item from table
 function removeTable() {
     event.target.parentElement.remove();
+}
+
+function completeTable() {
+    //Get current row
+    const row = event.target.parentElement.parentElement;
+
+    //Get current row date
+    const date = row.querySelector("[name='date']").value;
+
+    //Prompt user to enter real profit value
+    let profit = prompt('Enter profit');
+
+    console.log(profit + date);
+
+    //Ajax request to update data into MySQL
+    $.ajax({
+        url: "functions/updateCasino.php",
+        data: {profit: profit,
+               date: date
+            },
+        success: function(){
+            // Success
+        },
+        error: function (request, status, error) {
+            alert("Could not save data");
+            //Show error message could not save data
+        }
+    });
+
 }
 
 //Remove delete buttons

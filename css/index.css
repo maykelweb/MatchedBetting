@@ -317,3 +317,23 @@ input {
 #casino #table-buttons button:hover, #casino #table-buttons button:active  {
     background-color: #005982;
 }
+
+/* Edit Table */
+.list-done {
+    width: 25px;
+    height: 25px;
+    font-size: 15px;
+    line-height: 22px;
+    color: white;
+    background: #14db32;
+    display: inline-block;
+    cursor: pointer;
+    position: absolute;
+    right: 40px;
+    top: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+}
+
+.list-done i {
+    line-height: 24px;
+}
