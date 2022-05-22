@@ -61,6 +61,21 @@ function addFreeBet(e) {
     const profit = row.querySelector("[name='profit']").value;
     const date = row.querySelector("[name='date']").value;
 
+    //Check profit input for number value
+    try {
+        const words = profit.split('£');
+        const value = words[1].split(' ');
+        console.log(value[0]);
+    } catch (e) {
+        console.log("VALUE IS: 0")
+    }
+
+    const index = str.search(/[0-9]/);
+    //console.log(index); // 👉️ 4
+    
+    const firstNum = Number(str[index]);
+    //console.log(firstNum); // 👉️ 2
+
     if (bookmaker != "" && profit != "" && date != "") {
         //Ajax request to save data into MySQL
         $.ajax({
