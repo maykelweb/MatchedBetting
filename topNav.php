@@ -13,6 +13,7 @@ session_start();
                 //Active User
                 echo "<span id='navUser'> ". $_SESSION['activeUser']. "</span>";
             ?>
+            <input type="text">
             <div id="changeUsers" style="display:none;">
                 <?php
                     //Get list of all accounts

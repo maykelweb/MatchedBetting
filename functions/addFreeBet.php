@@ -10,15 +10,16 @@ if (session_id() == "")
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
     //Check all fields have a value
-    if (empty($_GET['bookmaker']) || empty($_GET['profit']) || empty($_GET['date'])) {
+    if (empty($_GET['bookmaker']) || empty($_GET['condition']) || empty($_GET['profit']) || empty($_GET['date'])) {
         //Show Error message, could not save data
     }
 
     //Initialize post data
     $bookmaker = $_GET['bookmaker'];
+    $condition = $_GET['condition'];
     $profit = $_GET['profit'];
     $date = $_GET['date'];
-
+    
     // Prepare a select statement to check if data is already in MySQL
     $sql = "SELECT time_created FROM freebets WHERE time_created = ?";
     
@@ -39,17 +40,18 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                     //Table row already exists, update existing instead of insert new row
 
                     // Prepare an update statement
-                    $sql = "UPDATE freebets SET profit = ?, bookmaker = ? WHERE time_created = ?";
+                    $sql = "UPDATE freebets SET bookmaker = ?, condition = ?, profit = ? WHERE time_created = ?";
          
                     if ($stmt = mysqli_prepare($link, $sql)) {
                         
                         // Bind variables to the prepared statement as parameters
-                        mysqli_stmt_bind_param($stmt, "sss", $param_rofit, $param_ookmaker, $param_ime_created);
+                        mysqli_stmt_bind_param($stmt, "ssds", $param_bookmaker, $param_condition, $param_profit, $param_time_created);
 
                         // Set parameters
-                        $param_ookmaker = $bookmaker;
-                        $param_rofit = $profit;
-                        $param_ime_created = $date;
+                        $param_bookmaker = $bookmaker;
+                        $param_condition = $condition;
+                        $param_profit = $profit;
+                        $param_time_created = $date;
             
                         // Attempt to execute the prepared statement
                         if (mysqli_stmt_execute($stmt)) {
@@ -64,17 +66,19 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                 } else { //Add data to table
 
                     // Prepare an insert statement
-                    $sql = "INSERT INTO freebets (bookmaker, profit, time_created) VALUES (?, ?, ?)";
+                    $sql = "INSERT INTO freebets (bookmaker, condition, profit, time_created) VALUES (?, ?, ?, ?)";
          
                     if ($stmt = mysqli_prepare($link, $sql)) {
                         
                         // Bind variables to the prepared statement as parameters
-                        mysqli_stmt_bind_param($stmt, "sss", $param_b, $param_p, $param_t);
+                        mysqli_stmt_bind_param($stmt, "ssds", $param_bookmaker, $param_condition, $param_profit, $param_time_created);
 
                         // Set parameters
-                        $param_b = $bookmaker;
-                        $param_p = $profit;
-                        $param_t = $date;
+                        $param_bookmaker = $bookmaker;
+                        $param_condition = $condition;
+                        $param_profit = $profit;
+                        $param_time_created = $date;
+            
             
                         // Attempt to execute the prepared statement
                         if (mysqli_stmt_execute($stmt)) {

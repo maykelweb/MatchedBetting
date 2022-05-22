@@ -58,29 +58,26 @@ function addFreeBet(e) {
     const row = e.target.parentElement.parentElement;
 
     const bookmaker = row.querySelector("[name='bookmaker']").value;
-    const profit = row.querySelector("[name='profit']").value;
+    const conditions = row.querySelector("[name='conditions']").value;
     const date = row.querySelector("[name='date']").value;
+    var profit;
 
     //Check profit input for number value
-    try {
-        const words = profit.split('£');
-        const value = words[1].split(' ');
-        console.log(value[0]);
-    } catch (e) {
-        console.log("VALUE IS: 0")
+    try { //Try to find £ value indicator
+        const words = conditions.split('£'); //Split at the £
+        const value = words[1].split(' '); //Split again after first space
+        profit = Number(value[0].replace(/[^\d]/g, "")); //Replace all characters except numbers
+    } catch (e) { //If no value, set profit to 0
+        profit = 0;
     }
 
-    const index = str.search(/[0-9]/);
-    //console.log(index); // 👉️ 4
-    
-    const firstNum = Number(str[index]);
-    //console.log(firstNum); // 👉️ 2
-
-    if (bookmaker != "" && profit != "" && date != "") {
+    if (bookmaker != "" && conditions != "" && date != "") {
         //Ajax request to save data into MySQL
+        console.log(profit);
         $.ajax({
             url: "functions/addFreeBet.php",
-            data: {bookmaker : bookmaker,
+            data: {bookmaker: bookmaker,
+                   condition: conditions,
                    profit: profit,
                    date: date
                 },

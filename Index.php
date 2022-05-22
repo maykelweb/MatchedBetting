@@ -6,7 +6,7 @@ require "topNav.php";
 <section class="midSection">
         
     <div id="freeBets">
-        <h1> Free Bets </h1>
+        <h1> Free Bets <?php echo $_SESSION['activeUser'] ?> </h1>
 
         <table>
             <thead>
@@ -29,7 +29,7 @@ require "topNav.php";
                     <td>
                         <input type="text" placeholder="Enter Bookie" name="bookmaker" value="'. $row['bookmaker'] .'">
                     <td>
-                        <input type="text" placeholder="Enter Profits" name="profit" value="'. $row['profit'] .'">
+                        <input type="text" placeholder="Enter Conditions" name="conditions" value="'. $row['condition'] .'">
                         <input type="hidden" name="date" value="'. $row['time_created'] .'">
                     </td>
                 </tr>'
@@ -50,7 +50,7 @@ require "topNav.php";
             <button class="button" onclick="editTable('freeBets', 'freeBetsData')">
                 <i class="fa-solid fa-pen"></i>
             </button>
-            <button class="button" onclick="addTable('freeBets', 'bookmaker', 'profit')">
+            <button class="button" onclick="addTable('freeBets', 'bookmaker', 'conditions')">
                 <i class="fa-solid fa-plus"></i>
             </button>
         </div>
