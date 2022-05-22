@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+//Check for active user changes
+if (isset($_GET['activeUser'])) {
+    $_SESSION['activeUser'] = $_GET['activeUser'];
+}
 ?>
 
 <body>
@@ -13,7 +18,7 @@ session_start();
                 //Active User
                 echo "<span id='navUser'> ". $_SESSION['activeUser']. "</span>";
             ?>
-            <input type="text">
+            <input type="text" name="activeUser" value="<?php echo $_SESSION['activeUser'] ?>">
             <div id="changeUsers" style="display:none;">
                 <?php
                     //Get list of all accounts
@@ -44,9 +49,22 @@ session_start();
 
         //Change User Event Listener
         const users = document.querySelectorAll('.changeUser');
+        const activeUser = document.querySelector("[name='activeUser']");
         users.forEach(user => {
             user.addEventListener('click', function handleClick(event) {
-                console.log(event.target.innerText);
+                $.ajax({
+                    url: "index.php",
+                    data: {
+                        activeUser: event.target.innerText
+                    },
+                    success: function(){
+                        // Success
+                    },
+                    error: function (request, status, error) {
+                        // Error
+                        alert("hereree");
+                    }
+                });
             });
         });
     </script>
