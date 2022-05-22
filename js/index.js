@@ -12,7 +12,7 @@ function addTable(t, r1, r2) {
     //Create bookie input node
     var inputB = document.createElement("input");
     inputB.type = "text";
-    inputB.placeholder = "Enter " + r1; 
+    inputB.placeholder = "Enter " + r1.charAt(0).toUpperCase() + r1.slice(1); //Short code to uppercase first character 
     inputB.setAttribute("name", r1);
 
     //add Event listeners to automatically add data into table
@@ -23,7 +23,7 @@ function addTable(t, r1, r2) {
     //Create profit input node
     var inputP = document.createElement("input");
     inputP.type = "text";
-    inputP.placeholder = "Enter " + r2; 
+    inputP.placeholder = "Enter " + r2.charAt(0).toUpperCase() + r2.slice(1);
     inputP.setAttribute("name", r2);
     
     //Add event listeners
@@ -160,7 +160,8 @@ function completeTable() {
                date: date
             },
         success: function(){
-            // Success
+            //Reload window to refresh table
+            window.location.reload();
         },
         error: function (request, status, error) {
             alert("Could not save data");

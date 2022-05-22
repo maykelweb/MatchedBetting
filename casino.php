@@ -18,7 +18,7 @@ require "topNav.php";
 
         <?php
         //Prepare statement to select all free bets
-        $sql = "SELECT * FROM casino";
+        $sql = "SELECT * FROM casino WHERE profit IS NULL";
         $result = mysqli_query($link, $sql);
 
         //Loop through all rows and display data
