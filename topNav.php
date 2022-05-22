@@ -18,8 +18,10 @@ if (isset($_GET['activeUser'])) {
                 //Active User
                 echo "<span id='navUser'> ". $_SESSION['activeUser']. "</span>";
             ?>
-            <input type="text" name="activeUser" value="<?php echo $_SESSION['activeUser'] ?>">
-            <div id="changeUsers" style="display:none;">
+            <form id="changeUserForm" action="">
+                <input type="hidden" name="activeUser" value="<?php echo $_SESSION['activeUser'] ?>">
+            </form>
+            <ul id="changeUsers" style="display:none;">
                 <?php
                     //Get list of all accounts
                     $query = "SELECT * FROM accounts";
@@ -27,14 +29,14 @@ if (isset($_GET['activeUser'])) {
                     if ($result->num_rows > 0) { //Display all accounts
                         while($row = $result->fetch_assoc()) {
                             if ($row['name'] != $activeUser) { //Don't show active user
-                                echo '<span class="changeUser">'. $row["name"] .'</span>';
+                                echo '<li class="changeUser">'. $row["name"] .'</li>';
                             }
                         }
                     } else {
-                        echo "<span> Add Account </span>";
+                        echo "<li> Add Account </li>";
                     }
                 ?>
-            </div>
+            </ul>
         </div>
         <a href="profits.php">
             Profit: £1722
@@ -47,24 +49,16 @@ if (isset($_GET['activeUser'])) {
             showUsers();
         });
 
-        //Change User Event Listener
+        //Initialize user variables
         const users = document.querySelectorAll('.changeUser');
+        const form = document.getElementById('changeUserForm');
         const activeUser = document.querySelector("[name='activeUser']");
-        users.forEach(user => {
-            user.addEventListener('click', function handleClick(event) {
-                $.ajax({
-                    url: "index.php",
-                    data: {
-                        activeUser: event.target.innerText
-                    },
-                    success: function(){
-                        // Success
-                    },
-                    error: function (request, status, error) {
-                        // Error
-                        alert("hereree");
-                    }
-                });
+
+        //Change User Event Listener
+        users.forEach(user => { //Add event listener to every user list
+            user.addEventListener('click', function handleClick(event) { //On click
+                activeUser.value = event.target.innerText //change active user input value
+                form.submit(); //reload page and change active user
             });
         });
     </script>
