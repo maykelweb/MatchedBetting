@@ -5,6 +5,11 @@
     padding: 0;
 }
 
+li {
+    text-decoration: none;
+    list-style-type: none;
+}
+
 a {
     text-decoration: none;
     color: white;
@@ -166,11 +171,12 @@ button:active {
     background-color: #1080d2;
     position: absolute;
     top: 40px;
+    padding: 10px 20px;
 }
 
-#changeUsers span {
+#changeUsers li {
     display: block;
-    padding: 10px;
+    padding: 10px 5px;
 }
 
 /* Mid Section */
