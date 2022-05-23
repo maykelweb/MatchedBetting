@@ -151,6 +151,43 @@ function editTable(t) {
 //Remove item from table
 function removeTable() {
     event.target.parentElement.remove();
+    deleteFreeBet(event.target.parentElement);
+}
+
+function deleteFreeBet(row) {
+    const bookmaker = row.querySelector("[name='bookmaker']").value;
+    const conditions = row.querySelector("[name='conditions']").value;
+    const date = row.querySelector("[name='date']").value;
+    var profit;
+
+    //Check profit input for number value
+    try { //Try to find £ value indicator
+        const words = conditions.split('£'); //Split at the £
+        const value = words[1].split(' '); //Split again after first space
+        profit = value[0];
+    } catch (e) { //If no value, set profit to 0
+        profit = 0;
+    }
+
+    if (bookmaker != "" && conditions != "" && date != "") {
+        //Ajax request to save data into MySQL
+        $.ajax({
+            url: "functions/removeFreeBet.php",
+            data: {bookmaker: bookmaker,
+                   condition: conditions,
+                   profit: profit,
+                   date: date
+                },
+            success: function(){
+                // Success refresh windows
+                location.reload();
+            },
+            error: function (request, status, error) {
+                alert("Could not save data:");
+                //Show error message could not save data
+            }
+        });
+    }
 }
 
 function completeTable() {
