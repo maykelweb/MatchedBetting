@@ -21,6 +21,7 @@ require "topNav.php";
             //Prepare statement to select all free bets
             $sql = "SELECT * FROM freebets";
             $result = mysqli_query($link, $sql);
+            $total = 0;
 
             //Loop through all rows and display data
             while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -34,6 +35,7 @@ require "topNav.php";
                     </td>
                 </tr>'
                 ;
+                $total += $row['profit'];
             }
             ?>
             
@@ -41,7 +43,7 @@ require "topNav.php";
             <tfoot>
                 <tr>
                     <th>Total </th>
-                    <td id="total"> £0 </td>
+                    <td id="total"> £<?php echo $total ?> </td>
                 </tr>
             </tfoot>
         </table>

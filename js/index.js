@@ -66,10 +66,10 @@ function addFreeBet(e) {
     try { //Try to find £ value indicator
         const words = conditions.split('£'); //Split at the £
         const value = words[1].split(' '); //Split again after first space
-        profit = value[0]; //Replace all characters except numbers .replace(/[^\d]/g, ""
+        profit = value[0];
     } catch (e) { //If no value, set profit to 0
         profit = 0;
-    }
+    } //Note replace all characters except numbers: .replace(/[^\d]/g, ""
 
     if (bookmaker != "" && conditions != "" && date != "") {
         //Ajax request to save data into MySQL
@@ -81,7 +81,8 @@ function addFreeBet(e) {
                    date: date
                 },
             success: function(){
-                // Success
+                // Success refresh windows
+                location.reload();
             },
             error: function (request, status, error) {
                 alert("Could not save data:");
@@ -205,7 +206,6 @@ function addInput(input) {
         input.blur();
     }
 }
-
 
 /* New Additions */
 function showUsers() {
