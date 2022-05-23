@@ -28,11 +28,17 @@ if (isset($_GET['activeUser'])) {
                     $result = mysqli_query($link, $query);
                     if ($result->num_rows > 0) { //Display all accounts
                         while($row = $result->fetch_assoc()) {
-                            if ($row['name'] != $activeUser) { //Don't show active user
+                            if ($row['name'] != $_SESSION['activeUser']) { //Don't show active user
                                 echo '<li class="changeUser">'. $row["name"] .'</li>';
                             }
                         }
+                        //Add 'All' option at end
+                        
+                        if ("All" != $_SESSION['activeUser']) { //If not already viewing All
+                            echo '<li class="changeUser"> All </li>';
+                        }
                     } else {
+                        //No Accounts
                         echo "<li> Add Account </li>";
                     }
                 ?>
