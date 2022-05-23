@@ -17,14 +17,24 @@ require "topNav.php";
             </thead>
             <tbody>
 
-            <?php
-            //Prepare statement to select all free bets
-            $sql = "SELECT * FROM freebets";
-            $result = mysqli_query($link, $sql);
-            $total = 0;
+            <?php 
+            //Short table filter
+            if ($_SESSION['activeUser'] == "All") { //If activeUser == All, show all bets
+                //Prepare SQL statement
+                $statement = $link->prepare("SELECT * FROM freebets");
+            } else { //Otherwise limit table elements connected to the active user
+                $statement = $link->prepare("SELECT * FROM freebets WHERE account = ?");
+                $user = $_SESSION['activeUser'];
+                $statement->bind_param("s", $user);
+            }
 
-            //Loop through all rows and display data
-            while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            //Execute SQL statement
+            $statement->execute();
+            $result = $statement->get_result();
+
+            $total = 0; //table total
+            while ($row = $result->fetch_assoc()) //Loop through and display table data
+            {
                 echo '
                 <tr>
                     <td>
@@ -34,10 +44,8 @@ require "topNav.php";
                         <input type="hidden" name="date" value="'. $row['time_created'] .'">
                     </td>
                 </tr>'
-                ;
-                $total += $row['profit'];
-            }
-            ?>
+                ;$total += $row['profit'];
+            }?>
             
             </tbody>
             <tfoot>
