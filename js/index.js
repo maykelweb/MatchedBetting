@@ -66,14 +66,13 @@ function addFreeBet(e) {
     try { //Try to find £ value indicator
         const words = conditions.split('£'); //Split at the £
         const value = words[1].split(' '); //Split again after first space
-        profit = Number(value[0].replace(/[^\d]/g, "")); //Replace all characters except numbers
+        profit = value[0]; //Replace all characters except numbers .replace(/[^\d]/g, ""
     } catch (e) { //If no value, set profit to 0
         profit = 0;
     }
 
     if (bookmaker != "" && conditions != "" && date != "") {
         //Ajax request to save data into MySQL
-        console.log(profit);
         $.ajax({
             url: "functions/addFreeBet.php",
             data: {bookmaker: bookmaker,

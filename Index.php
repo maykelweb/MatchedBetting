@@ -29,7 +29,7 @@ require "topNav.php";
                     <td>
                         <input type="text" placeholder="Enter Bookie" name="bookmaker" value="'. $row['bookmaker'] .'">
                     <td>
-                        <input type="text" placeholder="Enter Conditions" name="conditions" value="'. $row['condition'] .'">
+                        <input type="text" placeholder="Enter Conditions" name="conditions" value="'. $row['conditions'] .'">
                         <input type="hidden" name="date" value="'. $row['time_created'] .'">
                     </td>
                 </tr>'

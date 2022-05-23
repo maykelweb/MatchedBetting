@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                     //Table row already exists, update existing instead of insert new row
 
                     // Prepare an update statement
-                    $sql = "UPDATE freebets SET bookmaker = ?, condition = ?, profit = ? WHERE time_created = ?";
+                    $sql = "UPDATE freebets SET bookmaker = ?, conditions = ?, profit = ? WHERE time_created = ?";
          
                     if ($stmt = mysqli_prepare($link, $sql)) {
                         
@@ -66,9 +66,10 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                 } else { //Add data to table
 
                     // Prepare an insert statement
-                    $sql = "INSERT INTO freebets (bookmaker, condition, profit, time_created) VALUES (?, ?, ?, ?)";
+                    $sql = "INSERT INTO freebets (bookmaker, conditions, profit, time_created) VALUES (?, ?, ?, ?)";
          
                     if ($stmt = mysqli_prepare($link, $sql)) {
+                        echo "here";
                         
                         // Bind variables to the prepared statement as parameters
                         mysqli_stmt_bind_param($stmt, "ssds", $param_bookmaker, $param_condition, $param_profit, $param_time_created);
