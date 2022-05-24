@@ -162,11 +162,19 @@ function editTable(t) {
         //Create remove button
         var div = document.createElement("div");
         div.classList.add("list-remove");
-        div.onclick = removeTable;
         div.innerText = "x";
         div.setAttribute("value", count);
-        e.appendChild(div);
 
+        //Check which table this relates to
+        if (t == "freeBets") {
+            div.onclick = removeTable;
+        } else if (t == "profitBets") {
+            div.onclick = deleteProfitBet;
+        }
+
+        e.appendChild(div);
+        
+        //Add Tick button if on casino table
         if (t == "casino") {
             var tick = document.createElement("span");
             tick.classList.add("list-done");
@@ -206,6 +214,35 @@ function deleteFreeBet(row) {
             url: "functions/removeFreeBet.php",
             data: {bookmaker: bookmaker,
                    condition: conditions,
+                   profit: profit,
+                   date: date
+                },
+            success: function(){
+                // Success refresh windows
+                location.reload();
+            },
+            error: function (request, status, error) {
+                alert("Could not save data:");
+                //Show error message could not save data
+            }
+        });
+    }
+}
+
+function deleteProfitBet() {
+
+    //Get row as target of clicked event
+    row = event.target.parentElement; //Initialize table variables
+    const bookmaker = row.querySelector("[name='bookmaker']").value;
+    const profit = row.querySelector("[name='profit']").value;
+    const date = row.querySelector("[name='date']").value;
+
+    //Check variables are not empty to perform AJAX request
+    if (bookmaker != "" && profit != "" && date != "") {
+        //Ajax request to MySQL
+        $.ajax({ //Delete table data
+            url: "functions/deleteProfitBet.php",
+            data: {bookmaker: bookmaker,
                    profit: profit,
                    date: date
                 },
