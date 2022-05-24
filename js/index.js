@@ -41,14 +41,20 @@ function addTable(t, r1, r2) {
 
     //Listen to row changes
     newRow.addEventListener('change', (event) => {
-        if (r2 == "conditions") {
-            addFreeBet(event);
-        }
-        if (r2 == "profit") {
-            addProfitBets(event);
-        }
-        if (r1 == "casino") {
-            addCasino(event);
+        //Change command depending on table
+        switch(t) {
+            case "freeBets":
+                addFreeBet(event);
+                break;
+            case "profitBets":
+                addProfitBets(event);
+                break;
+            case "bank":
+                addToBank(event);
+                break;
+            case "casino":
+                addCasino(event);
+                break;
         }
     });
 
@@ -125,6 +131,45 @@ function addProfitBets(e) {
     }
 }
 
+//Function to validate bank transfer table and add new inputs to MySQL
+function addToBank(e) {
+    const row = e.target.parentElement.parentElement;
+
+    const bookmaker = row.querySelector("[name='bookmaker']").value;
+    const description = row.querySelector("[name='description']").value;
+    const date = row.querySelector("[name='date']").value;
+    var amount;
+
+    //Check profit input for number value
+    try { //Try to find £ value indicator
+        const words = description.split('£'); //Split at the £
+        const value = words[1].split(' '); //Split again after first space
+        amount = value[0];
+    } catch (e) { //If no value, set profit to 0
+        amount = 0;
+    }
+
+    if (bookmaker != "" && description != "" && date != "") {
+        //Ajax request to save data into MySQL
+        $.ajax({
+            url: "functions/addToBank.php",
+            data: {bookmaker: bookmaker,
+                   description: description,
+                   amount: amount,
+                   date: date
+                },
+            success: function(){
+                // Success refresh windows
+                location.reload();
+            },
+            error: function (request, status, error) {
+                alert("Could not save data:");
+                //Show error message could not save data
+            }
+        });
+    }
+}
+
 //Add casino table data to mysql
 function addCasino(e) {
     const row = e.target.parentElement.parentElement;
@@ -171,6 +216,8 @@ function editTable(t) {
             div.onclick = removeTable;
         } else if (t == "profitBets") {
             div.onclick = deleteProfitBet;
+        } else if (t == "bank") {
+            div.onclick = archiveBankTransfer;
         }
 
         e.appendChild(div);
@@ -216,6 +263,47 @@ function deleteFreeBet(row) {
             data: {bookmaker: bookmaker,
                    condition: conditions,
                    profit: profit,
+                   date: date
+                },
+            success: function(){
+                // Success refresh windows
+                location.reload();
+            },
+            error: function (request, status, error) {
+                alert("Could not save data:");
+                //Show error message could not save data
+            }
+        });
+    }
+}
+
+//Delete info from bank table and place into archived table
+function archiveBankTransfer(row) {
+    
+    //Get row as target of clicked event
+    row = event.target.parentElement; //Initialize table variables
+
+    const bookmaker = row.querySelector("[name='bookmaker']").value;
+    const description = row.querySelector("[name='description']").value;
+    const date = row.querySelector("[name='date']").value;
+    var amount;
+
+    //Check profit input for number value
+    try { //Try to find £ value indicator
+        const words = description.split('£'); //Split at the £
+        const value = words[1].split(' '); //Split again after first space
+        amount = value[0];
+    } catch (e) { //If no value, set profit to 0
+        amount = 0;
+    }
+
+    if (bookmaker != "" && description != "" && date != "") {
+        //Ajax request to save data into MySQL
+        $.ajax({
+            url: "functions/archiveBank.php",
+            data: {bookmaker: bookmaker,
+                   description: description,
+                   amount: amount,
                    date: date
                 },
             success: function(){
