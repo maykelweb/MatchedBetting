@@ -1,5 +1,6 @@
 /* Add a new cell to the table */
 function addTable(t, r1, r2) {
+    //Get table
     const table = document.getElementById(t).getElementsByTagName('tbody')[0];
 
     // Insert a row at the end of table
@@ -22,7 +23,14 @@ function addTable(t, r1, r2) {
     
     //Create profit input node
     var inputP = document.createElement("input");
-    inputP.type = "text";
+    
+    //Check if input should be text or number type
+    if (r2 == "profit") {
+        inputP.type = "number";
+    } else {
+        inputP.type = "text";
+    }
+
     inputP.placeholder = "Enter " + r2.charAt(0).toUpperCase() + r2.slice(1);
     inputP.setAttribute("name", r2);
     
@@ -39,8 +47,11 @@ function addTable(t, r1, r2) {
 
     //Listen to row changes
     newRow.addEventListener('change', (event) => {
-        if (r1 == "bookmaker") {
+        if (r2 == "conditions") {
             addFreeBet(event);
+        }
+        if (r2 == "profit") {
+            addProfitBets(event);
         }
         if (r1 == "casino") {
             addCasino(event);
@@ -83,6 +94,33 @@ function addFreeBet(e) {
             success: function(){
                 // Success refresh windows
                 location.reload();
+            },
+            error: function (request, status, error) {
+                alert("Could not save data:");
+                //Show error message could not save data
+            }
+        });
+    }
+}
+
+//Function to validate profit bets table and add new inputs to MySQL
+function addProfitBets(e) {
+    const row = e.target.parentElement.parentElement;
+
+    const bookmaker = row.querySelector("[name='bookmaker']").value;
+    const profit = row.querySelector("[name='profit']").value;
+    const date = row.querySelector("[name='date']").value;
+
+    if (bookmaker != "" && profit != "" && date != "") {
+        //Ajax request to save data into MySQL
+        $.ajax({
+            url: "functions/addProfitBet.php",
+            data: {bookmaker: bookmaker,
+                   profit: profit,
+                   date: date
+                },
+            success: function(){
+                // Success refresh windows
             },
             error: function (request, status, error) {
                 alert("Could not save data:");
@@ -150,7 +188,6 @@ function editTable(t) {
 
 //Remove item from table
 function removeTable() {
-    event.target.parentElement.remove();
     deleteFreeBet(event.target.parentElement);
 }
 

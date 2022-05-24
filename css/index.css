@@ -230,13 +230,21 @@ h1 {
     font-weight: bold!important;
 }
 
-#table-buttons {
-    float: right;
-}
-
 /* Add Bet Form */
 #addBetContainer {
     padding: 20px;
+}
+
+/* Description under tables */
+#tableSettings > span {
+    float: left;
+    margin-left: 10px;
+    margin-top: 3px;
+    font-weight: bold;
+}
+#table-buttons {
+    display: inline-block;
+    float: right;
 }
 
 .panel {
@@ -309,14 +317,14 @@ input {
 }
 
 #casinoEV thead {
-    border-bottom: 2px solid #006898!important;
+    border-bottom: 2px solid #F10E96!important;
 }
 #casinoEV tbody tr.active-row {
     font-weight: bold;
-    color: #006898;
+    color: #F10E96;
 }
 #casinoEV tfoot {
-    background-color: #006898;
+    background-color: #F10E96;
     color: white;
 }
 #casino #table-buttons {
@@ -324,10 +332,10 @@ input {
     padding:0;
 }
 #casino #table-buttons button {
-    background-color: #006898;
+    background-color: #F10E96;
 }
 #casino #table-buttons button:hover, #casino #table-buttons button:active  {
-    background-color: #005982;
+    background-color: #F10E96;
 }
 
 /* Edit Table */
