@@ -71,14 +71,14 @@ require "topNav.php";
 
         <script>
             //Add event listeners to every input
-            document.body.querySelectorAll('input').forEach( input => {
+            document.getElementById('freeBets').querySelectorAll('input').forEach( input => {
                 input.addEventListener("keyup", (event) => {
                     addInput(input);
                 });
             });
 
             //Add event listeners to every tr
-            document.body.querySelectorAll('tr').forEach( input => {
+            document.getElementById('freeBets').querySelectorAll('tr').forEach( input => {
                 input.addEventListener("change", (event) => {
                     addFreeBet(event);
                 });
@@ -150,16 +150,16 @@ require "topNav.php";
 
         <script>
             //Add event listeners to every input
-            document.body.querySelectorAll('input').forEach( input => {
+            document.getElementById('profitBets').querySelectorAll('input').forEach( input => {
                 input.addEventListener("keyup", (event) => {
                     addInput(input);
                 });
             });
 
             //Add event listeners to every tr
-            document.body.querySelectorAll('tr').forEach( input => {
+            document.getElementById('profitBets').querySelectorAll('tr').forEach( input => {
                 input.addEventListener("change", (event) => {
-                    addFreeBet(event);
+                    addProfitBets(event);
                 });
             });
         </script>

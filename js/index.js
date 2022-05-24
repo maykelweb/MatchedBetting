@@ -115,6 +115,7 @@ function addProfitBets(e) {
                 },
             success: function(){
                 // Success refresh windows
+                location.reload();
             },
             error: function (request, status, error) {
                 alert("Could not save data:");
