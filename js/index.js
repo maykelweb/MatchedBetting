@@ -11,32 +11,26 @@ function addTable(t, r1, r2) {
     var row2 = newRow.insertCell();
 
     //Create bookie input node
-    var inputB = document.createElement("input");
-    inputB.type = "text";
-    inputB.placeholder = "Enter " + r1.charAt(0).toUpperCase() + r1.slice(1); //Short code to uppercase first character 
-    inputB.setAttribute("name", r1);
+    var inputA = document.createElement("input");
+    inputA.type = "text";
+    inputA.placeholder = "Enter " + r1.charAt(0).toUpperCase() + r1.slice(1); //Short code to uppercase first character 
+    inputA.setAttribute("name", r1);
 
     //add Event listeners to automatically add data into table
-    inputB.addEventListener("keyup", (event) => { 
-        addInput(inputB);
+    inputA.addEventListener("keyup", (event) => { 
+        addInput(inputA);
     });
     
     //Create profit input node
-    var inputP = document.createElement("input");
-    
-    //Check if input should be text or number type
-    if (r2 == "profit") {
-        inputP.type = "number";
-    } else {
-        inputP.type = "text";
-    }
-
-    inputP.placeholder = "Enter " + r2.charAt(0).toUpperCase() + r2.slice(1);
-    inputP.setAttribute("name", r2);
+    var inputB = document.createElement("input");
+    inputB.type = "text";
+    //Uppercase first letter in name
+    inputB.placeholder = "Enter " + r2.charAt(0).toUpperCase() + r2.slice(1);
+    inputB.setAttribute("name", r2);
     
     //Add event listeners
-    inputP.addEventListener("keyup", (event) => {
-        addInput(inputP);
+    inputB.addEventListener("keyup", (event) => {
+        addInput(inputB);
     });
 
     //Create Hidden Date field
@@ -59,8 +53,8 @@ function addTable(t, r1, r2) {
     });
 
     // Append an input node to the cell
-    row1.appendChild(inputB);
-    row2.appendChild(inputP);
+    row1.appendChild(inputA);
+    row2.appendChild(inputB);
     row2.appendChild(inputD);
 }
 

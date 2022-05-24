@@ -4,11 +4,12 @@ require "header.php";
 require "topNav.php";
 ?>
 <section class="midSection">
+    
+    <h1 id="title"> Welcome <?php echo $_SESSION['activeUser'] ?> </h1>
         
-    <div id="freeBets">
-        <h1> Free Bets <?php echo $_SESSION['activeUser'] ?> </h1>
+    <div>
 
-        <table>
+        <table id="freeBets">
             <thead>
                 <tr>
                     <th>Bookmaker</th>
@@ -59,10 +60,10 @@ require "topNav.php";
         <div id="tableSettings">
             <span> Free Bets </span>
             <div id="table-buttons">
-            <button class="button" onclick="editTable('freeBets', 'freeBetsData')">
+            <button class="freebet-button" onclick="editTable('freeBets', 'freeBetsData')">
                 <i class="fa-solid fa-pen"></i>
             </button>
-            <button class="button" onclick="addTable('freeBets', 'bookmaker', 'conditions')">
+            <button class="freebet-button" onclick="addTable('freeBets', 'bookmaker', 'conditions')">
                 <i class="fa-solid fa-plus"></i>
             </button>
             </div>
@@ -119,7 +120,7 @@ require "topNav.php";
                     <td>
                         <input type="text" placeholder="Enter Bookmaker" name="bookmaker" value="'. $row['bookmaker'] .'">
                     <td>
-                        <input type="number" placeholder="Enter Profit" name="profit" value="'. $row['profit'] .'">
+                        <input type="text" placeholder="Enter Profit" name="profit" value="'. $row['profit'] .'">
                         <input type="hidden" name="date" value="'. $row['time_created'] .'">
                     </td>
                 </tr>'
