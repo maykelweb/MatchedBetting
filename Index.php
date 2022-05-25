@@ -116,7 +116,7 @@ require "topNav.php";
                     <td>
                         <input type="text" placeholder="Enter Bookmaker" name="bookmaker" value="'. $row['bookmaker'] .'">
                     <td>
-                        <input type="text" placeholder="Enter Profit" name="profit" value="'. $row['profit'] .'">
+                        <input type="text" placeholder="Enter Profit" name="profit" value="£'. $row['profit'] .'">
                         <input type="hidden" name="date" value="'. $row['time_created'] .'">
                     </td>
                 </tr>'
