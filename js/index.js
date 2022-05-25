@@ -217,7 +217,7 @@ function editTable(t) {
 
         //Check which table this relates to
         if (t == "freeBets") {
-            div.onclick = removeTable;
+            div.onclick = deleteFreeBet;
         } else if (t == "profitBets") {
             div.onclick = deleteProfitBet;
         } else if (t == "bank") {
@@ -240,12 +240,10 @@ function editTable(t) {
     })
 }
 
-//Remove item from table
-function removeTable() {
-    deleteFreeBet(event.target.parentElement);
-}
+function deleteFreeBet() {
+    //Get row as target of clicked event
+    row = event.target.parentElement; //Initialize table variables
 
-function deleteFreeBet(row) {
     const bookmaker = row.querySelector("[name='bookmaker']").value;
     const conditions = row.querySelector("[name='conditions']").value;
     const date = row.querySelector("[name='date']").value;
@@ -279,6 +277,9 @@ function deleteFreeBet(row) {
             }
         });
     }
+    
+    //Remove row from table
+    event.target.parentElement.remove();
 }
 
 //Delete info from bank table and place into archived table
@@ -320,6 +321,9 @@ function archiveBankTransfer(row) {
             }
         });
     }
+    
+    //Remove row from table
+    event.target.parentElement.remove();
 }
 
 function deleteProfitBet() {
@@ -349,6 +353,9 @@ function deleteProfitBet() {
             }
         });
     }
+    
+    //Remove row from table
+    event.target.parentElement.remove();
 }
 
 function completeTable() {

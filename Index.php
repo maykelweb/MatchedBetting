@@ -44,7 +44,7 @@ require "topNav.php";
                         <input type="hidden" name="date" value="'. $row['time_created'] .'">
                     </td>
                 </tr>'
-                ;$total += $row['profit'];
+                ;$total += $row['freebet'];
             }?>
             
             </tbody>
@@ -198,7 +198,7 @@ require "topNav.php";
                         <input type="hidden" name="date" value="'. $row['time_created'] .'">
                     </td>
                 </tr>'
-                ;$total += $row['profit'];
+                ;$total += $row['amount'];
             }?>
             
             </tbody>
