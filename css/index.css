@@ -172,10 +172,10 @@ textarea:focus, input:focus{
     background-color: #F10E96;
     color: white;
 }
-#casino #table-buttons button {
+#casino-container .table-buttons button {
     background-color: #F10E96;
 }
-#casino #table-buttons button:hover, #casino #table-buttons button:active  {
+#casino-container .table-buttons button:hover, #casino-container .table-buttons button:active  {
     background-color: #F10E96;
 }
 
@@ -221,7 +221,7 @@ textarea:focus, input:focus{
     margin-top: 3px;
     font-weight: bold;
 }
-#table-buttons {
+.table-buttons {
     float: right;
     margin-bottom: 20px;
 }
@@ -253,6 +253,7 @@ textarea:focus, input:focus{
 .midSection {
     max-width: 1200px;
     margin: 0 auto;
+    margin-bottom: 150px;
     text-align: center;
 }
 
@@ -307,11 +308,12 @@ textarea:focus, input:focus{
 }
 
 /* Casino Tab*/
-#Casino {
+#casino-container {
     max-width: 600px;
-    margin: 0 auto;
+    padding: 20px;
 }
-#casino #table-buttons {
+
+#casino-container .table-buttons {
     margin:0;
     padding:0;
 }

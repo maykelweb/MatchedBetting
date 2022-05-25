@@ -52,7 +52,7 @@ function addTable(t, r1, r2) {
             case "bank":
                 addToBank(event);
                 break;
-            case "casino":
+            case "casinoEV":
                 addCasino(event);
                 break;
         }
@@ -179,19 +179,31 @@ function addCasino(e) {
     const row = e.target.parentElement.parentElement;
 
     const casino = row.querySelector("[name='casino']").value;
-    const ev = row.querySelector("[name='ev']").value;
+    const description = row.querySelector("[name='Expected Value']").value;
     const date = row.querySelector("[name='date']").value;
+    var ev;
 
-    if (casino != "" && ev != "" && date != "") {
+    //Check profit input for number value
+    try { //Try to find £ value indicator
+        const words = description.split('£'); //Split at the £
+        const value = words[1].split(' '); //Split again after first space
+        ev = value[0];
+    } catch (e) { //If no value, set profit to 0
+        ev = 0;
+    }
+
+    if (casino != "" && description != "" && date != "") {
         //Ajax request to save data into MySQL
         $.ajax({
             url: "functions/addCasino.php",
-            data: {casino : casino,
+            data: {casino: casino,
+                   description: description,
                    ev: ev,
                    date: date
                 },
             success: function(){
-                // Success
+                // Success refresh windows
+                location.reload();
             },
             error: function (request, status, error) {
                 alert("Could not save data:");
@@ -206,37 +218,31 @@ function editTable(t) {
     //Get all table rows
     const table = document.getElementById(t).querySelectorAll('tbody tr');
 
-    let count = 0;
     //Add remove button for each row
     table.forEach((e) => {
         //Create remove button
         var div = document.createElement("div");
         div.classList.add("list-remove");
         div.innerText = "x";
-        div.setAttribute("value", count);
 
-        //Check which table this relates to
-        if (t == "freeBets") {
-            div.onclick = deleteFreeBet;
-        } else if (t == "profitBets") {
-            div.onclick = deleteProfitBet;
-        } else if (t == "bank") {
-            div.onclick = archiveBankTransfer;
+        //Check which table this relates to and add onclick function
+        switch(t) {
+            case "freeBets":
+                div.onclick = deleteFreeBet;
+                break;
+            case "profitBets":
+                div.onclick = deleteProfitBet;
+                break;
+            case "bank":
+                div.onclick = archiveBankTransfer;
+                break;
+            case "casinoEV":
+                div.onclick = completeCasinoEV;
+                break;
         }
 
         e.appendChild(div);
         
-        //Add Tick button if on casino table
-        if (t == "casino") {
-            var tick = document.createElement("span");
-            tick.classList.add("list-done");
-            tick.onclick = completeTable;
-            tick.innerHTML = '<i class="fa-solid fa-check"></i>';
-            tick.setAttribute("value", count);
-            e.appendChild(tick);
-        }
-        
-        count++;
     })
 }
 
@@ -358,7 +364,7 @@ function deleteProfitBet() {
     event.target.parentElement.remove();
 }
 
-function completeTable() {
+function completeCasinoEV() {
     //Get current row
     const row = event.target.parentElement.parentElement;
 
@@ -385,20 +391,9 @@ function completeTable() {
             //Show error message could not save data
         }
     });
-
-}
-
-//Remove delete buttons
-function removeEdit(t) {
-    //Get all table rows
-    const table = document.getElementById(t);
-
-    let list = table.querySelectorAll('.list-remove');
-
-    //Add remove button for each row
-    list.forEach((e) => {
-        e.remove();
-    })
+    
+    //Remove row from table
+    event.target.parentElement.remove();
 }
 
 
