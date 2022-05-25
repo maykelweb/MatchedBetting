@@ -3,11 +3,11 @@
         <a href="index.php">
             <i class="fa-solid fa-house"></i>
         </a>
-        <a href="add.php" id="addKey">
-            <i class="fa-solid fa-plus"></i>
-        </a>
-        <a href="casino.php">
+        <a href="casino.php" id="addKey">
             <i class="fa-solid fa-dice"></i>
+        </a>
+        <a href="bank.php">
+            <i class="fa-solid fa-coins"></i>
         </a>
     </section>
 
