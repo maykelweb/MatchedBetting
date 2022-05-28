@@ -59,11 +59,11 @@ require "topNav.php";
 
         <div id="tableSettings">
             <span> Casino EV </span>
-            <div class="table-buttons">
-            <button onclick="editTable('casinoEV')">
+            <div class="table-buttons casinoEV-buttons">
+            <button class="pink-button" onclick="editTable('casinoEV')">
                 <i class="fa-solid fa-pen"></i>
             </button>
-            <button onclick="addTable('casinoEV', 'casino', 'Expected Value')">
+            <button class="pink-button" onclick="addTable('casinoEV', 'casino', 'Expected Value')">
                 <i class="fa-solid fa-plus"></i>
             </button>
             </div>
@@ -118,12 +118,12 @@ require "topNav.php";
         </table>
 
         <div id="tableSettings">
-            <span> Free Bets </span>
+            <span> Casino </span>
             <div class="table-buttons">
-            <button onclick="editTable('casinoEV')">
+            <button class="blue-button" onclick="editTable('casinoEV')">
                 <i class="fa-solid fa-pen"></i>
             </button>
-            <button onclick="addTable('casinoEV', 'casino', 'Expected Value')">
+            <button class="blue-button" onclick="addTable('casinoEV', 'casino', 'Expected Value')">
                 <i class="fa-solid fa-plus"></i>
             </button>
             </div>

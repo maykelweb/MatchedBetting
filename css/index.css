@@ -74,7 +74,8 @@ table {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
 }
 
-#profitBets {
+/*Fix table underneath float objects*/
+#profitBets, #casino {
     clear: both;
 }
 
@@ -98,41 +99,26 @@ tbody {
     max-height: 125px;
     overflow-y: auto;
 }
-
 th, td {
     padding: 12px 15px;
     text-align: center;
     display: inline-block;
     width: 40%;
 }
-
 tbody tr {
     position: relative;
     border-bottom: 1px solid #dddddd;
 }
-
 tbody tr:nth-of-type(even) {
     background-color: #f3f3f3;
 }
-
 tbody th {
     border-bottom: 2px solid #009879;
 }
-
-#casinoEV tbody th {
-    border-bottom: 2px solid #006898;
-}
-
-tbody tr.active-row {
-    font-weight: bold;
-    color: #009879;
-}
-
 tfoot {
     background-color: #009879;
     color: white;
 }
-
 input {
     width: 100%;
     border: none;
@@ -152,54 +138,21 @@ textarea:focus, input:focus{
 #bank thead {
     border-bottom: 2px solid#1080d2!important;
 }
-.bank-button{
-    background-color: #1080d2;
-}
-.bank-button:hover {
-    background-color: #1072b8;
-}
-.bank-button:focus {
-    box-shadow: rgba(46, 127, 164, 0.4) 0 0 0 3px;
-    outline: none;
-}
-.bank-button:disabled {
-    background-color: #94b5d3;
-    border-color: rgba(27, 31, 35, .1);
-    color: rgba(255, 255, 255, .8);
-    cursor: default;
-}
-.bank-button:active {
-    background-color: #1072b8;
-    box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
-}
-/* Casino */
+/* CasinoEV */
 #casinoEV thead {
     border-bottom: 2px solid #F10E96!important;
-}
-#casinoEV tbody tr.active-row {
-    font-weight: bold;
-    color: #F10E96;
 }
 #casinoEV tfoot {
     background-color: #F10E96;
     color: white;
 }
+/* Casino */
 #casino thead {
     border-bottom: 2px solid #1080d2!important;
-}
-#casino tbody tr.active-row {
-    font-weight: bold;
-    color: #1080d2;
 }
 #casino tfoot {
     background-color: #1080d2;
     color: white;
-}
-#casino-container .table-buttons button {
-    background-color: #F10E96;
-}
-#casino-container .table-buttons button:hover, #casino-container .table-buttons button:active  {
-    background-color: #F10E96;
 }
 
 /* Table Remove Buttons */
@@ -247,6 +200,50 @@ textarea:focus, input:focus{
 .table-buttons {
     float: right;
     margin-bottom: 20px;
+}
+
+/* Button Colours */
+/* Blue */
+.blue-button {
+    background-color: #1080d2;
+}
+.blue-button:hover {
+    background-color: #1072b8;
+}
+.blue-button:focus {
+    box-shadow: rgba(46, 127, 164, 0.4) 0 0 0 3px;
+    outline: none;
+}
+.blue-button:disabled {
+    background-color: #94b5d3;
+    border-color: rgba(27, 31, 35, .1);
+    color: rgba(255, 255, 255, .8);
+    cursor: default;
+}
+.blue-button:active {
+    background-color: #1072b8;
+    box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
+}
+/* Pink */
+.pink-button {
+    background-color: #F10E96;
+}
+.pink-button:hover {
+    background-color: #dc0d89;
+}
+.pink-button:focus {
+    box-shadow: rgba(150, 46, 164, 0.4) 0 0 0 3px;
+    outline: none;
+}
+.pink-button:disabled {
+    background-color: #e680bd;
+    border-color: rgba(27, 31, 35, .1);
+    color: rgba(255, 255, 255, .8);
+    cursor: default;
+}
+.pink-button:active {
+    background-color: #dc0d89;
+    box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
 }
 
 /* New Additions */
@@ -336,11 +333,6 @@ textarea:focus, input:focus{
 #casino-container {
     max-width: 600px;
     padding: 20px;
-}
-
-#casino-container .table-buttons {
-    margin:0;
-    padding:0;
 }
 
 /* Calculator */
