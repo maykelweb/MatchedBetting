@@ -10,7 +10,7 @@ function addTable(t, r1, r2) {
     var row1 = newRow.insertCell();
     var row2 = newRow.insertCell();
 
-    //Create bookie input node
+    //Create input node 1
     var inputA = document.createElement("input");
     inputA.type = "text";
     inputA.placeholder = "Enter " + r1.charAt(0).toUpperCase() + r1.slice(1); //Short code to uppercase first character 
@@ -21,7 +21,7 @@ function addTable(t, r1, r2) {
         addInput(inputA);
     });
     
-    //Create profit input node
+    //Create input node 2
     var inputB = document.createElement("input");
     inputB.type = "text";
     //Uppercase first letter in name
@@ -62,6 +62,44 @@ function addTable(t, r1, r2) {
     row1.appendChild(inputA);
     row2.appendChild(inputB);
     row2.appendChild(inputD);
+}
+
+function addTransferTable(t, r) {
+    //Get table
+    const table = document.getElementById(t).getElementsByTagName('tbody')[0];
+
+    // Insert a row at the end of table
+    var newRow = table.insertRow();
+
+    // Insert a cell at the end of the row
+    var row = newRow.insertCell();
+
+    //Create amount row
+    var inputA = document.createElement("input");
+    inputA.type = "text";
+    inputA.placeholder = "Enter " + r.charAt(0).toUpperCase() + r.slice(1); //Short code to uppercase first character 
+    inputA.setAttribute("name", r);
+
+    //add Event listeners to automatically add data into table
+    inputA.addEventListener("keyup", (event) => { 
+        addInput(inputA);
+    });
+
+    //Create Hidden Date field
+    var inputD = document.createElement("input");
+    inputD.setAttribute("type", "hidden");
+    inputD.setAttribute("name", "date");
+    inputD.setAttribute("value", new Date().toLocaleString().replace(/ /g, ":"));
+
+    //Listen to row changes
+    newRow.addEventListener('change', (event) => {
+        //Add changed table to mySQL
+        addTransfer(event);
+    });
+
+    // Append an input node to the cell
+    row.appendChild(inputA);
+    row.appendChild(inputD);
 }
 
 //Function to validate free bets table and add new inputs to MySQL
@@ -213,6 +251,31 @@ function addCasino(e) {
     }
 }
 
+function addTransfer(e) {
+    const row = e.target.parentElement.parentElement;
+
+    const amount = row.querySelector("[name='amount']").value;
+    const date = row.querySelector("[name='date']").value;
+
+    if (amount != "" && date != "") {
+        //Ajax request to save data into MySQL
+        $.ajax({
+            url: "functions/addTransfer.php",
+            data: {amount: amount,
+                   date: date
+                },
+            success: function(){
+                // Success refresh windows
+                location.reload();
+            },
+            error: function (request, status, error) {
+                alert("Could not save data:");
+                //Show error message could not save data
+            }
+        });
+    }
+}
+
 //Add remove buttons to each table list
 function editTable(t) {
     //Get all table rows
@@ -238,6 +301,9 @@ function editTable(t) {
                 break;
             case "casinoEV":
                 div.onclick = completeCasinoEV;
+                break;
+            case "transfers":
+                div.onclick = deleteTransfer;
                 break;
         }
 
@@ -391,6 +457,37 @@ function completeCasinoEV() {
             //Show error message could not save data
         }
     });
+    
+    //Remove row from table
+    event.target.parentElement.remove();
+}
+
+
+//Delete info from transfer table and place into archived table
+function deleteTransfer(row) {
+    
+    //Get row as target of clicked event
+    row = event.target.parentElement; //Initialize table variables
+
+    const amount = row.querySelector("[name='amount']").value;
+    const date = row.querySelector("[name='date']").value;
+
+    if (amount != "" && date != "") {
+        //Ajax request to save data into MySQL
+        $.ajax({
+            url: "functions/deleteTransfer.php",
+            data: {amount: amount,
+                   date: date
+                },
+            success: function(){
+                // Success refresh windows
+            },
+            error: function (request, status, error) {
+                alert("Could not save data:");
+                //Show error message could not save data
+            }
+        });
+    }
     
     //Remove row from table
     event.target.parentElement.remove();

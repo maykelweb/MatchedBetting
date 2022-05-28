@@ -86,7 +86,7 @@ require "topNav.php";
     </div>
 
     <div id="bank-container">
-        <table id="bank">
+        <table id="transfers">
             <thead>
                 <tr>
                     <th>Amount</th>
@@ -98,9 +98,9 @@ require "topNav.php";
             //Short table filter
             if ($_SESSION['activeUser'] == "All") { //If activeUser == All, show all bets
                 //Prepare SQL statement
-                $statement = $link->prepare("SELECT * FROM bank");
+                $statement = $link->prepare("SELECT * FROM transfers");
             } else { //Otherwise limit table elements connected to the active user
-                $statement = $link->prepare("SELECT * FROM bank WHERE account = ?");
+                $statement = $link->prepare("SELECT * FROM transfers WHERE account = ?");
                 $user = $_SESSION['activeUser'];
                 $statement->bind_param("s", $user);
             }
@@ -115,11 +115,11 @@ require "topNav.php";
                 echo '
                 <tr>
                     <td>
-                        <input type="text" placeholder="Enter Amount" name="description" value="'. $row['description'] .'">
+                        <input type="text" placeholder="Enter Amount" name="amount" value="'. $row['amount'] .'">
                         <input type="hidden" name="date" value="'. $row['time_created'] .'">
                     </td>
                 </tr>'
-                ;$total += $row['profit'];
+                ;$total += $row['amount'];
             }?>
             
             </tbody>
@@ -133,10 +133,10 @@ require "topNav.php";
         <div id="tableSettings">
             <span> Sent </span>
             <div id="table-buttons">
-            <button class="button" onclick="editTable('bank')">
+            <button class="button" onclick="editTable('transfers')">
                 <i class="fa-solid fa-pen"></i>
             </button>
-            <button class="button" onclick="addTable('bank', 'bookmaker', 'description')">
+            <button class="button" onclick="addTransferTable('transfers', 'amount')">
                 <i class="fa-solid fa-plus"></i>
             </button>
             </div>
@@ -144,16 +144,16 @@ require "topNav.php";
 
         <script>
             //Add event listeners to every input
-            document.getElementById('bank').querySelectorAll('input').forEach( input => {
+            document.getElementById('transfers').querySelectorAll('input').forEach( input => {
                 input.addEventListener("keyup", (event) => {
                     addInput(input);
                 });
             });
 
             //Add event listeners to every tr
-            document.getElementById('bank').querySelectorAll('tr').forEach( input => {
+            document.getElementById('transfers').querySelectorAll('tr').forEach( input => {
                 input.addEventListener("change", (event) => {
-                    addToBank(event);
+                    addTransfer(event);
                 });
             });
         </script>
