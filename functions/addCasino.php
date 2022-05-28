@@ -74,7 +74,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                     $sql = "INSERT INTO casino (casino, `description`, ev, `account`, time_created) VALUES (?, ?, ?, ?, ?)";
                     
                     if ($stmt = mysqli_prepare($link, $sql)) {
-                        echo "HERE";
                         
                         // Bind variables to the prepared statement as parameters
                         mysqli_stmt_bind_param($stmt, "ssdss", $param_casino, $param_description, $param_ev, $param_account, $param_time_created);

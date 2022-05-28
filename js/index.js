@@ -103,7 +103,7 @@ function addTransferTable(t, r) {
     // Append an input node to the cell
     row.appendChild(inputA);
     row.appendChild(inputD);
-    
+
     //Scroll window to newly appended row
     table.scrollTo(0, table.scrollHeight);
 }
@@ -306,6 +306,10 @@ function editTable(t) {
                 div.onclick = archiveBankTransfer;
                 break;
             case "casinoEV":
+                div.onclick = deleteCasinoEV;
+                break;
+            //Currently never called
+            case "casino":
                 div.onclick = completeCasinoEV;
                 break;
             case "transfers":
@@ -362,7 +366,6 @@ function deleteFreeBet() {
 
 //Delete info from bank table and place into archived table
 function archiveBankTransfer(row) {
-    
     //Get row as target of clicked event
     row = event.target.parentElement; //Initialize table variables
 
@@ -405,7 +408,6 @@ function archiveBankTransfer(row) {
 }
 
 function deleteProfitBet() {
-
     //Get row as target of clicked event
     row = event.target.parentElement; //Initialize table variables
     const bookmaker = row.querySelector("[name='bookmaker']").value;
@@ -424,6 +426,47 @@ function deleteProfitBet() {
             success: function(){
                 // Success refresh windows
                 location.reload();
+            },
+            error: function (request, status, error) {
+                alert("Could not save data:");
+                //Show error message could not save data
+            }
+        });
+    }
+    
+    //Remove row from table
+    event.target.parentElement.remove();
+}
+
+function deleteCasinoEV() {
+    //Get row as target of clicked event
+    const row = event.target.parentElement;
+    const casino = row.querySelector("[name='casino']").value;
+    const description = row.querySelector("[name='Expected Value']").value;
+    const date = row.querySelector("[name='date']").value;
+    var ev;
+
+    //Check profit input for number value
+    try { //Try to find £ value indicator
+        const words = description.split('£'); //Split at the £
+        const value = words[1].split(' '); //Split again after first space
+        ev = value[0];
+    } catch (e) { //If no value, set profit to 0
+        ev = 0;
+    }
+
+    if (casino != "" && description != "" && date != "") {
+        //Ajax request to save data into MySQL
+        $.ajax({
+            url: "functions/deleteCasino.php",
+            data: {casino: casino,
+                   description: description,
+                   ev: ev,
+                   date: date
+                },
+            success: function(){
+                // Success refresh windows
+                //location.reload();
             },
             error: function (request, status, error) {
                 alert("Could not save data:");
