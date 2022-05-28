@@ -466,7 +466,7 @@ function deleteCasinoEV() {
                 },
             success: function(){
                 // Success refresh windows
-                //location.reload();
+                location.reload();
             },
             error: function (request, status, error) {
                 alert("Could not save data:");
