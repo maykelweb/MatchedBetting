@@ -65,6 +65,8 @@ button:active {
 /* Table */
 table {
     width: 100%;
+    display: block;
+    margin-top: 50px;
     font-size: 0.9em;
     margin-bottom: 5px;
     text-align: center;
@@ -81,10 +83,24 @@ thead {
     border-bottom: 2px solid #009879!important;
 }
 
+tr, thead, tfoot {
+    display: table;
+    width: 100%;
+}
+
+/*Block Table Display for overscroll*/
+tbody {
+    width: 100%;
+    display: block;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
 th, td {
     padding: 12px 15px;
     text-align: center;
-    width: 50%;
+    display: inline-block;
+    width: 40%;
 }
 
 tbody tr {
@@ -126,39 +142,32 @@ textarea:focus, input:focus{
 }
 
 /* Table Colours */
-/* Free Bets */
-#freeBets tfoot {
+/* Bank */
+#bank tfoot {
     background-color: #1080d2;
 }
-#freeBets thead {
+#bank thead {
     border-bottom: 2px solid#1080d2!important;
 }
-.freebet-button{
+.bank-button{
     background-color: #1080d2;
 }
-.freebet-button:hover {
+.bank-button:hover {
     background-color: #1072b8;
 }
-.freebet-button:focus {
+.bank-button:focus {
     box-shadow: rgba(46, 127, 164, 0.4) 0 0 0 3px;
     outline: none;
 }
-.freebet-button:disabled {
+.bank-button:disabled {
     background-color: #94b5d3;
     border-color: rgba(27, 31, 35, .1);
     color: rgba(255, 255, 255, .8);
     cursor: default;
 }
-.freebet-button:active {
+.bank-button:active {
     background-color: #1072b8;
     box-shadow: rgba(20, 70, 32, .2) 0 1px 0 inset;
-}
-/* Bank */
-#banktransfer tfoot {
-    background-color: #1080d2;
-}
-#banktransfer thead {
-    border-bottom: 2px solid#1080d2!important;
 }
 /* Casino */
 #casinoEV thead {
@@ -170,6 +179,17 @@ textarea:focus, input:focus{
 }
 #casinoEV tfoot {
     background-color: #F10E96;
+    color: white;
+}
+#casino thead {
+    border-bottom: 2px solid #1080d2!important;
+}
+#casino tbody tr.active-row {
+    font-weight: bold;
+    color: #1080d2;
+}
+#casino tfoot {
+    background-color: #1080d2;
     color: white;
 }
 #casino-container .table-buttons button {
@@ -253,7 +273,7 @@ textarea:focus, input:focus{
 .midSection {
     max-width: 1200px;
     margin: 0 auto;
-    margin-bottom: 150px;
+    margin-bottom: 100px;
     text-align: center;
 }
 
@@ -271,7 +291,7 @@ textarea:focus, input:focus{
 /* Midsection Title */
 #title {
     margin: 30px;
-    margin-bottom: 10px;
+    margin-bottom: -30px;
     font-weight: bold;
     text-align: center;
 }

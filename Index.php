@@ -59,10 +59,10 @@ require "topNav.php";
         <div id="tableSettings">
             <span> Free Bets </span>
             <div class="table-buttons">
-            <button class="freebet-button" onclick="editTable('freeBets')">
+            <button class="button" onclick="editTable('freeBets')">
                 <i class="fa-solid fa-pen"></i>
             </button>
-            <button class="freebet-button" onclick="addTable('freeBets', 'bookmaker', 'conditions')">
+            <button class="button" onclick="addTable('freeBets', 'bookmaker', 'conditions')">
                 <i class="fa-solid fa-plus"></i>
             </button>
             </div>
@@ -134,7 +134,7 @@ require "topNav.php";
 
         <div id="tableSettings">
             <span> Profits </span>
-            <class id="table-buttons">
+            <div class="table-buttons">
             <button class="button" onclick="editTable('profitBets')">
                 <i class="fa-solid fa-pen"></i>
             </button>
@@ -213,10 +213,10 @@ require "topNav.php";
         <div id="tableSettings">
             <span> Withdrawals </span>
             <div class="table-buttons">
-            <button class="button" onclick="editTable('bank')">
+            <button class="bank-button" onclick="editTable('bank')">
                 <i class="fa-solid fa-pen"></i>
             </button>
-            <button class="button" onclick="addTable('bank', 'bookmaker', 'description')">
+            <button class="bank-button" onclick="addTable('bank', 'bookmaker', 'description')">
                 <i class="fa-solid fa-plus"></i>
             </button>
             </div>
