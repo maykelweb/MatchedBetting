@@ -66,13 +66,16 @@ button:active {
 table {
     width: 100%;
     display: block;
-    margin-top: 50px;
     font-size: 0.9em;
     margin-bottom: 5px;
     text-align: center;
     font-family: sans-serif;
     border-collapse: collapse;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+}
+
+#profitBets {
+    clear: both;
 }
 
 table input {
@@ -92,7 +95,7 @@ tr, thead, tfoot {
 tbody {
     width: 100%;
     display: block;
-    max-height: 200px;
+    max-height: 125px;
     overflow-y: auto;
 }
 
@@ -290,9 +293,11 @@ textarea:focus, input:focus{
 
 /* Midsection Title */
 #title {
-    margin: 30px;
-    margin-bottom: -30px;
+    margin: 20px;
+    margin-bottom: 0;
+    font-size: 2em;
     font-weight: bold;
+    color: #1080d2;
     text-align: center;
 }
 

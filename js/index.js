@@ -62,6 +62,9 @@ function addTable(t, r1, r2) {
     row1.appendChild(inputA);
     row2.appendChild(inputB);
     row2.appendChild(inputD);
+
+    //Scroll window to newly appended row
+    table.scrollTo(0, table.scrollHeight);
 }
 
 function addTransferTable(t, r) {
@@ -100,6 +103,9 @@ function addTransferTable(t, r) {
     // Append an input node to the cell
     row.appendChild(inputA);
     row.appendChild(inputD);
+    
+    //Scroll window to newly appended row
+    table.scrollTo(0, table.scrollHeight);
 }
 
 //Function to validate free bets table and add new inputs to MySQL
