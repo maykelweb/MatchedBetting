@@ -260,7 +260,7 @@ function addCasino(e) {
 function addTransfer(e) {
     const row = e.target.parentElement.parentElement;
 
-    const amount = row.querySelector("[name='amount']").value;
+    const amount = row.querySelector("[name='amount']").value.replace(/£/g, " "); //remove £ sign from value
     const date = row.querySelector("[name='date']").value;
 
     if (amount != "" && date != "") {

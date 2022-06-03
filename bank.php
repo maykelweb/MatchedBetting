@@ -58,7 +58,7 @@ require "topNav.php";
 
         <div id="tableSettings">
             <span> Withdrawals </span>
-            <div id="table-buttons">
+            <div class="table-buttons">
             <button class="button" onclick="editTable('bank')">
                 <i class="fa-solid fa-pen"></i>
             </button>
@@ -115,7 +115,7 @@ require "topNav.php";
                 echo '
                 <tr>
                     <td>
-                        <input type="text" placeholder="Enter Amount" name="amount" value="'. $row['amount'] .'">
+                        <input type="text" placeholder="Enter Amount" name="amount" value="£'. $row['amount'] .'">
                         <input type="hidden" name="date" value="'. $row['time_created'] .'">
                     </td>
                 </tr>'
@@ -132,7 +132,7 @@ require "topNav.php";
 
         <div id="tableSettings">
             <span> Sent </span>
-            <div id="table-buttons">
+            <div class="table-buttons">
             <button class="button" onclick="editTable('transfers')">
                 <i class="fa-solid fa-pen"></i>
             </button>
