@@ -158,6 +158,45 @@ require "topNav.php";
             });
         </script>
     </div>
+
+    <div>
+        <?php
+        //Show Daily Profit
+        //Short table filter
+        if ($_SESSION['activeUser'] == "All") { //If activeUser == All, show all bets
+            //Prepare SQL statement
+            $statement = $link->prepare("SELECT * FROM profitbets");
+        } else { //Otherwise limit table elements connected to the active user
+            $statement = $link->prepare("SELECT * FROM profitbets WHERE account = ?");
+            $user = $_SESSION['activeUser'];
+            $statement->bind_param("s", $user);
+        }
+
+        //Execute SQL statement
+        $statement->execute();
+        $result = $statement->get_result();
+
+        $total = 0; //table total
+
+        //Today
+        $current_time = date("Y/m/d H:i:s", strtotime("last sunday"));
+        while ($row = $result->fetch_assoc()) //Loop through and display table data
+        {
+
+            //String example: 27/05/2022:12:00:01
+            $date = str_replace(",", " ", $row['time_created']); //Remove , for space in, date string
+            $date = str_replace("/", "-", $date); //Remove / for - to work with datetime
+            $date = preg_replace("/:/i", ' ', $date, 1); //Remove the first :
+            $dateFormat = date_create($date);
+            $time_created = date_format($dateFormat,"Y/m/d H:i:s");
+            if ($current_time == $time_created) {
+                $total += $row['profit'];
+                echo "here";
+            }
+            
+        }
+        ?>
+    </div>
 </section>
 
 <?php
