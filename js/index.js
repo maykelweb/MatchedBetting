@@ -52,7 +52,7 @@ function addTable(t, r1, r2) {
             case "bank":
                 addToBank(event);
                 break;
-            case "casinoEV":
+            case "casino":
                 addCasino(event);
                 break;
         }
@@ -157,8 +157,6 @@ function addProfitBets(e) {
     const profit = row.querySelector("[name='profit']").value.replace(/£/g, " "); //remove £ sign from value
     const date = row.querySelector("[name='date']").value;
 
-    console.log(profit)
-
     if (bookmaker != "" && profit != "" && date != "") {
         //Ajax request to save data into MySQL
         $.ajax({
@@ -223,30 +221,19 @@ function addCasino(e) {
     const row = e.target.parentElement.parentElement;
 
     const casino = row.querySelector("[name='casino']").value;
-    const description = row.querySelector("[name='Expected Value']").value;
+    const profit = row.querySelector("[name='profit']").value.replace(/£/g, " "); //remove £ sign from value
     const date = row.querySelector("[name='date']").value;
-    var ev;
 
-    //Check profit input for number value
-    try { //Try to find £ value indicator
-        const words = description.split('£'); //Split at the £
-        const value = words[1].split(' '); //Split again after first space
-        ev = value[0];
-    } catch (e) { //If no value, set profit to 0
-        ev = 0;
-    }
-
-    if (casino != "" && description != "" && date != "") {
+    if (casino != "" && profit != "" && date != "") {
         //Ajax request to save data into MySQL
         $.ajax({
             url: "functions/addCasino.php",
             data: {casino: casino,
-                   description: description,
-                   ev: ev,
+                   profit: profit,
                    date: date
                 },
             success: function(){
-                // Success refresh windows
+                // Success refresh window
                 location.reload();
             },
             error: function (request, status, error) {
@@ -305,8 +292,8 @@ function editTable(t) {
             case "bank":
                 div.onclick = archiveBankTransfer;
                 break;
-            case "casinoEV":
-                div.onclick = deleteCasinoEV;
+            case "casino":
+                div.onclick = deleteCasino;
                 break;
             //Currently never called
             case "casino":
@@ -438,30 +425,19 @@ function deleteProfitBet() {
     event.target.parentElement.remove();
 }
 
-function deleteCasinoEV() {
+function deleteCasino() {
     //Get row as target of clicked event
     const row = event.target.parentElement;
     const casino = row.querySelector("[name='casino']").value;
-    const description = row.querySelector("[name='Expected Value']").value;
+    const profit = row.querySelector("[name='profit']").value.replace(/£/g, " ");
     const date = row.querySelector("[name='date']").value;
-    var ev;
 
-    //Check profit input for number value
-    try { //Try to find £ value indicator
-        const words = description.split('£'); //Split at the £
-        const value = words[1].split(' '); //Split again after first space
-        ev = value[0];
-    } catch (e) { //If no value, set profit to 0
-        ev = 0;
-    }
-
-    if (casino != "" && description != "" && date != "") {
+    if (casino != "" && profit != "" && date != "") {
         //Ajax request to save data into MySQL
         $.ajax({
             url: "functions/deleteCasino.php",
             data: {casino: casino,
-                   description: description,
-                   ev: ev,
+                   profit: profit,
                    date: date
                 },
             success: function(){
@@ -474,38 +450,6 @@ function deleteCasinoEV() {
             }
         });
     }
-    
-    //Remove row from table
-    event.target.parentElement.remove();
-}
-
-function completeCasinoEV() {
-    //Get current row
-    const row = event.target.parentElement.parentElement;
-
-    //Get current row date
-    const date = row.querySelector("[name='date']").value;
-
-    //Prompt user to enter real profit value
-    let profit = prompt('Enter profit');
-
-    console.log(profit + date);
-
-    //Ajax request to update data into MySQL
-    $.ajax({
-        url: "functions/updateCasino.php",
-        data: {profit: profit,
-               date: date
-            },
-        success: function(){
-            //Reload window to refresh table
-            window.location.reload();
-        },
-        error: function (request, status, error) {
-            alert("Could not save data");
-            //Show error message could not save data
-        }
-    });
     
     //Remove row from table
     event.target.parentElement.remove();

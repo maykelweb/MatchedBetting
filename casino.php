@@ -9,66 +9,6 @@ require "topNav.php";
 
     <div id="casino-container">
 
-    <table id="casinoEV">
-            <thead>
-                <tr>
-                    <th>Casino</th>
-                    <th>Expected Value</th>
-                </tr>
-            </thead>
-            <tbody>
-
-            <?php 
-            //Short table filter
-            if ($_SESSION['activeUser'] == "All") { //If activeUser == All, show all bets
-                //Prepare SQL statement
-                $statement = $link->prepare("SELECT * FROM casino WHERE profit IS NULL");
-            } else { //Otherwise limit table elements connected to the active user
-                $statement = $link->prepare("SELECT * FROM casino WHERE account = ? AND profit IS NULL");
-                $user = $_SESSION['activeUser'];
-                $statement->bind_param("s", $user);
-            }
-
-            //Execute SQL statement
-            $statement->execute();
-            $result = $statement->get_result();
-
-            $total = 0; //table total
-            while ($row = $result->fetch_assoc()) //Loop through and display table data
-            {
-                echo '
-                <tr>
-                    <td>
-                        <input type="text" placeholder="Enter Casino" name="casino" value="'. $row['casino'] .'">
-                    <td>
-                        <input type="text" placeholder="Enter Expected Value" name="Expected Value" value="'. $row['description'] .'">
-                        <input type="hidden" name="date" value="'. $row['time_created'] .'">
-                    </td>
-                </tr>'
-                ;$total += $row['ev'];
-            }?>
-            
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>Total </th>
-                    <td id="total"> £<?php echo $total ?> </td>
-                </tr>
-            </tfoot>
-        </table>
-
-        <div id="tableSettings">
-            <span> Casino EV </span>
-            <div class="table-buttons casinoEV-buttons">
-            <button class="pink-button" onclick="editTable('casinoEV')">
-                <i class="fa-solid fa-pen"></i>
-            </button>
-            <button class="pink-button" onclick="addTable('casinoEV', 'casino', 'Expected Value')">
-                <i class="fa-solid fa-plus"></i>
-            </button>
-            </div>
-        </div>
-
         <table id="casino">
             <thead>
                 <tr>
@@ -82,9 +22,9 @@ require "topNav.php";
             //Short table filter
             if ($_SESSION['activeUser'] == "All") { //If activeUser == All, show all bets
                 //Prepare SQL statement
-                $statement = $link->prepare("SELECT * FROM casino WHERE profit IS NOT NULL");
+                $statement = $link->prepare("SELECT * FROM casino");
             } else { //Otherwise limit table elements connected to the active user
-                $statement = $link->prepare("SELECT * FROM casino WHERE account = ? AND profit IS NOT NULL");
+                $statement = $link->prepare("SELECT * FROM casino WHERE account = ?");
                 $user = $_SESSION['activeUser'];
                 $statement->bind_param("s", $user);
             }
@@ -120,10 +60,10 @@ require "topNav.php";
         <div id="tableSettings">
             <span> Casino </span>
             <div class="table-buttons">
-            <button class="blue-button" onclick="editTable('casinoEV')">
+            <button class="blue-button" onclick="editTable('casino')">
                 <i class="fa-solid fa-pen"></i>
             </button>
-            <button class="blue-button" onclick="addTable('casinoEV', 'casino', 'Expected Value')">
+            <button class="blue-button" onclick="addTable('casino', 'casino', 'profit')">
                 <i class="fa-solid fa-plus"></i>
             </button>
             </div>
