@@ -44,7 +44,7 @@ require "topNav.php";
                         <input type="hidden" name="date" value="'. $row['time_created'] .'">
                     </td>
                 </tr>'
-                ;$total += $row['profit'];
+                ;$total += $row['amount'];
             }?>
             
             </tbody>
@@ -132,6 +132,7 @@ require "topNav.php";
 
         <div id="tableSettings">
             <span> Sent </span>
+            
             <div class="table-buttons">
             <button class="button" onclick="editTable('transfers')">
                 <i class="fa-solid fa-pen"></i>
@@ -139,6 +140,17 @@ require "topNav.php";
             <button class="button" onclick="addTransferTable('transfers', 'amount')">
                 <i class="fa-solid fa-plus"></i>
             </button>
+            </div>
+            <div id="time-filter">
+            <a id="show-day">
+                <i class="fa-solid fa-calendar-day"></i>
+            </a>
+            <a id="show-week">
+                <i class="fa-solid fa-calendar-week"></i>
+            </a>
+            <a id="show-month">
+                <i class="fa-solid fa-calendar-days"></i>
+            </a>
             </div>
         </div>
 
@@ -160,6 +172,8 @@ require "topNav.php";
     </div>
 
     <div>
+        
+        
         <?php
         //Show Daily Profit
         //Short table filter
@@ -179,22 +193,27 @@ require "topNav.php";
         $total = 0; //table total
 
         //Today
-        $current_time = date("Y/m/d H:i:s", strtotime("last sunday"));
+        $current_time = DateTime::createFromFormat('d-m-Y', '27-05-2022')->format('d-m-Y');
         while ($row = $result->fetch_assoc()) //Loop through and display table data
         {
 
             //String example: 27/05/2022:12:00:01
-            $date = str_replace(",", " ", $row['time_created']); //Remove , for space in, date string
+            $date = str_replace(",", "", $row['time_created']); //Remove , for space in, date string
+            $date = substr($date, 0, 10); //Remove everything after :
             $date = str_replace("/", "-", $date); //Remove / for - to work with datetime
-            $date = preg_replace("/:/i", ' ', $date, 1); //Remove the first :
-            $dateFormat = date_create($date);
-            $time_created = date_format($dateFormat,"Y/m/d H:i:s");
+            $time_created = DateTime::createFromFormat('d-m-Y', $date)->format('d-m-Y');
+
             if ($current_time == $time_created) {
+                echo '
+                    <div>
+                        <span>'. $row['bookmaker'] .'</span>
+                        <span>£'. $row['profit'] .'</span>
+                    </div>';
                 $total += $row['profit'];
-                echo "here";
             }
             
         }
+        echo $total;
         ?>
     </div>
 </section>
