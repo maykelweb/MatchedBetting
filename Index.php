@@ -268,24 +268,26 @@ require "topNav.php";
             }
 
             //Profit Week
-            $lastWeek = date("Y-m-d", strtotime('last week'));  
-            if  ($time_created <= $lastWeek) {
+            $lastWeek = date("d-m-Y", strtotime('last monday'));  
+            if  ($time_created >= $lastMonth) {
                 $profit_week += $row['profit'];
             }
+            //echo $lastWeek . " : " . $time_created . '<br>';
 
             //Profit Month
-            $lastMonth = date("Y-m-d", strtotime('last month'));
-            if  ($time_created >= $lastMonth) {
+            $lastMonth = date("d-m-Y", strtotime('last month'));
+            $lastDay = date("d-m-Y", strtotime('last day of previous month'));
+            if  ($time_created >= $lastMonth && $time_created <= $lastDay) {
                 $profit_month += $row['profit'];
-                echo $time_created . "   ";
             }
         }
         ?>
 
         <div id="profitGraph">
-            <span>Profit Today: <?php echo $profit_today?></span>
-            <span>Profit This Week: <?php echo $profit_week?></span>
-            <span>Profit This Month: <?php echo $profit_month?></span>
+            <h3>Profit</h3>
+            <span><strong>£<?php echo $profit_today?></strong> Today </span>
+            <span><strong>£<?php echo $profit_week?></strong> This Week </span>
+            <span><strong>£<?php echo $profit_month?></strong> Last Month </span>
         </div>
 
         <script>

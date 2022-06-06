@@ -421,3 +421,22 @@ textarea:focus, input:focus{
 tr:hover .account-hidden {
     display: block;
 }
+
+/*Profit Graph*/
+#profitGraph {
+    margin-top: 50px;
+    padding: 20px;
+}
+#profitGraph span {
+    display: block;
+    max-width: 200px;
+    text-align: left;
+    padding: 10px;
+    padding-left: 20px;
+    margin: 10px auto;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+#profitGraph span strong {
+    color: #009879;
+}
