@@ -230,6 +230,64 @@ require "topNav.php";
             </div>
         </div>
 
+        <?php
+        //Statement to get all profits
+        if ($_SESSION['activeUser'] == "All") { //If activeUser == All, show all bets
+            //Prepare SQL statement
+            $statement = $link->prepare("SELECT * FROM profitbets");
+        } else { //Otherwise limit table elements connected to the active user
+            $statement = $link->prepare("SELECT * FROM profitbets WHERE account = ?");
+            $user = $_SESSION['activeUser'];
+            $statement->bind_param("s", $user);
+        }
+
+        //Execute SQL statement
+        $statement->execute();
+        $result = $statement->get_result();
+
+        //Today
+        $today = date("d-m-Y", strtotime('today'));
+
+        // Total Profits Counter
+        $profit_today = 0; 
+        $profit_week = 0;
+
+        //Loop through all bets
+        while ($row = $result->fetch_assoc()) //Loop through and display table data
+        {
+
+            //String example: 27/05/2022:12:00:01
+            $date = str_replace(",", "", $row['time_created']); //Remove , for space in date string
+            $date = substr($date, 0, 10); //Remove everything after :
+            $date = str_replace("/", "-", $date); //Remove / for - to work with datetime 
+            $time_created = DateTime::createFromFormat('d-m-Y', $date)->format('d-m-Y');
+
+            //Porift Today
+            if ($today == $time_created) {
+                $profit_today += $row['profit'];
+            }
+
+            //Profit Week
+            $lastWeek = date("Y-m-d", strtotime('last week'));  
+            if  ($time_created <= $lastWeek) {
+                $profit_week += $row['profit'];
+            }
+
+            //Profit Month
+            $lastMonth = date("Y-m-d", strtotime('last month'));
+            if  ($time_created >= $lastMonth) {
+                $profit_month += $row['profit'];
+                echo $time_created . "   ";
+            }
+        }
+        ?>
+
+        <div id="profitGraph">
+            <span>Profit Today: <?php echo $profit_today?></span>
+            <span>Profit This Week: <?php echo $profit_week?></span>
+            <span>Profit This Month: <?php echo $profit_month?></span>
+        </div>
+
         <script>
             //Add event listeners to every input
             document.getElementById('bank').querySelectorAll('input').forEach( input => {
