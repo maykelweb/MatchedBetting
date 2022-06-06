@@ -38,7 +38,14 @@ require "topNav.php";
                 echo '
                 <tr>
                     <td>
-                        <input type="text" placeholder="Enter Bookmaker" name="bookmaker" value="'. $row['bookmaker'] .'">
+                        <input type="text" placeholder="Enter Bookmaker" name="bookmaker" value="'. $row['bookmaker'] .'">';
+
+                        //Show linked account when viewing all
+                        if ($_SESSION['activeUser'] == "All") {
+                            echo '
+                            <span class="account-hidden">'. $row['account'] .'</span>';
+                        }
+                echo'
                     <td>
                         <input type="text" placeholder="Enter Conditions" name="conditions" value="'. $row['conditions'] .'">
                         <input type="hidden" name="date" value="'. $row['time_created'] .'">
