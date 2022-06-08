@@ -246,7 +246,7 @@ require "topNav.php";
         $result = $statement->get_result();
 
         //Today
-        $today = date("d-m-Y", strtotime('today'));
+        $today = date("Y-m-d", strtotime('today'));
 
         // Total Profits Counter
         $profit_today = 0; 
@@ -255,12 +255,11 @@ require "topNav.php";
         //Loop through all bets
         while ($row = $result->fetch_assoc()) //Loop through and display table data
         {
-
             //String example: 27/05/2022:12:00:01
             $date = str_replace(",", "", $row['time_created']); //Remove , for space in date string
             $date = substr($date, 0, 10); //Remove everything after :
             $date = str_replace("/", "-", $date); //Remove / for - to work with datetime 
-            $time_created = DateTime::createFromFormat('d-m-Y', $date)->format('d-m-Y');
+            $time_created = DateTime::createFromFormat('d-m-Y', $date)->format('Y-m-d');
 
             //Porift Today
             if ($today == $time_created) {
@@ -268,15 +267,14 @@ require "topNav.php";
             }
 
             //Profit Week
-            $lastWeek = date("d-m-Y", strtotime('last monday'));  
-            if  ($time_created >= $lastMonth) {
+            $lastWeek = date("Y-m-d", strtotime('last monday'));  
+            if  ($time_created >= $lastWeek) {
                 $profit_week += $row['profit'];
             }
-            //echo $lastWeek . " : " . $time_created . '<br>';
 
-            //Profit Month
-            $lastMonth = date("d-m-Y", strtotime('last month'));
-            $lastDay = date("d-m-Y", strtotime('last day of previous month'));
+            //This Month
+            $lastMonth = date("Y-m-d", strtotime('first day of this month'));
+            $lastDay = date("Y-m-d", strtotime('last day of this month'));
             if  ($time_created >= $lastMonth && $time_created <= $lastDay) {
                 $profit_month += $row['profit'];
             }
@@ -287,7 +285,7 @@ require "topNav.php";
             <h3>Profit</h3>
             <span><strong>£<?php echo $profit_today?></strong> Today </span>
             <span><strong>£<?php echo $profit_week?></strong> This Week </span>
-            <span><strong>£<?php echo $profit_month?></strong> Last Month </span>
+            <span><strong>£<?php echo $profit_month?></strong> This Month </span>
         </div>
 
         <script>
